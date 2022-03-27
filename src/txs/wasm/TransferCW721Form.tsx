@@ -9,7 +9,7 @@ import { SAMPLE_ADDRESS } from "config/constants"
 import { queryKey } from "data/query"
 import { useAddress } from "data/wallet"
 import { useBankBalance } from "data/queries/bank"
-import { useTnsAddress } from "data/external/tns"
+import { useIqnsAddress } from "data/external/iqns"
 import { Auto, Card, InlineFlex } from "components/layout"
 import { Form, FormItem, FormHelp, Input } from "components/form"
 import NFTAssetItem from "pages/nft/NFTAssetItem"
@@ -50,7 +50,7 @@ const TransferCW721Form = ({ contract, id }: Props) => {
   }
 
   /* resolve recipient */
-  const { data: resolvedAddress, ...tnsState } = useTnsAddress(recipient ?? "")
+  const { data: resolvedAddress, ...iqnsState } = useIqnsAddress(recipient ?? "")
   useEffect(() => {
     if (!recipient) {
       setValue("address", undefined)
@@ -63,14 +63,14 @@ const TransferCW721Form = ({ contract, id }: Props) => {
     }
   }, [form, recipient, resolvedAddress, setValue])
 
-  // validate(tns): not found
+  // validate(iqns): not found
   const invalid =
-    recipient?.endsWith(".ust") && !tnsState.isLoading && !resolvedAddress
+    recipient?.endsWith(".ust") && !iqnsState.isLoading && !resolvedAddress
       ? t("Address not found")
       : ""
 
   const disabled =
-    invalid || (tnsState.isLoading && t("Searching for address..."))
+    invalid || (iqnsState.isLoading && t("Searching for address..."))
 
   useEffect(() => {
     if (invalid) setError("recipient", { type: "invalid", message: invalid })
@@ -127,7 +127,7 @@ const TransferCW721Form = ({ contract, id }: Props) => {
   return (
     <Auto
       columns={[
-        <Card isFetching={tnsState.isLoading}>
+        <Card isFetching={iqnsState.isLoading}>
           <NFTAssetItem contract={contract} id={id} />
 
           <Tx {...tx}>

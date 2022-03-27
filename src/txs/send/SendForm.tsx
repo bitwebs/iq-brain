@@ -9,7 +9,7 @@ import { SAMPLE_ADDRESS } from "config/constants"
 import { queryKey } from "data/query"
 import { useAddress } from "data/wallet"
 import { useBankBalance } from "data/queries/bank"
-import { useTnsAddress } from "data/external/tns"
+import { useIqnsAddress } from "data/external/iqns"
 import { ExternalLink } from "components/general"
 import { Auto, Card, Grid, InlineFlex } from "components/layout"
 import { Form, FormItem, FormHelp, Input, FormWarning } from "components/form"
@@ -53,7 +53,7 @@ const SendForm = ({ token, decimals, balance }: Props) => {
   }
 
   /* resolve recipient */
-  const { data: resolvedAddress, ...tnsState } = useTnsAddress(recipient ?? "")
+  const { data: resolvedAddress, ...iqnsState } = useIqnsAddress(recipient ?? "")
   useEffect(() => {
     if (!recipient) {
       setValue("address", undefined)
@@ -67,14 +67,14 @@ const SendForm = ({ token, decimals, balance }: Props) => {
     }
   }, [form, recipient, resolvedAddress, setValue])
 
-  // validate(tns): not found
+  // validate(iqns): not found
   const invalid =
-    recipient?.endsWith(".ust") && !tnsState.isLoading && !resolvedAddress
+    recipient?.endsWith(".ust") && !iqnsState.isLoading && !resolvedAddress
       ? t("Address not found")
       : ""
 
   const disabled =
-    invalid || (tnsState.isLoading && t("Searching for address..."))
+    invalid || (iqnsState.isLoading && t("Searching for address..."))
 
   useEffect(() => {
     if (invalid) setError("recipient", { type: "invalid", message: invalid })
@@ -144,7 +144,7 @@ const SendForm = ({ token, decimals, balance }: Props) => {
   return (
     <Auto
       columns={[
-        <Card isFetching={tnsState.isLoading}>
+        <Card isFetching={iqnsState.isLoading}>
           <Tx {...tx}>
             {({ max, fee, submit }) => (
               <Form onSubmit={handleSubmit(submit.fn)}>

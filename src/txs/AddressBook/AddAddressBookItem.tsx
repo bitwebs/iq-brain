@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import PersonIcon from "@mui/icons-material/Person"
 import { truncate } from "@web4/brain-utils"
 import { useAddressBook } from "data/settings/AddressBook"
-import { useTnsAddress } from "data/external/tns"
+import { useIqnsAddress } from "data/external/iqns"
 import { InlineFlex } from "components/layout"
 import { Form, FormItem, Submit, Input } from "components/form"
 import { Fetching, useModal } from "components/feedback"
@@ -27,16 +27,16 @@ const AddAddressBookItem = () => {
   }
 
   /* resolve recipient */
-  const { data: resolvedAddress, ...tnsState } = useTnsAddress(recipient ?? "")
+  const { data: resolvedAddress, ...iqnsState } = useIqnsAddress(recipient ?? "")
 
-  // validate(tns): not found
+  // validate(iqns): not found
   const invalid =
-    recipient?.endsWith(".ust") && !tnsState.isLoading && !resolvedAddress
+    recipient?.endsWith(".ust") && !iqnsState.isLoading && !resolvedAddress
       ? t("Address not found")
       : ""
 
   const disabled =
-    invalid || (tnsState.isLoading && t("Searching for address..."))
+    invalid || (iqnsState.isLoading && t("Searching for address..."))
 
   useEffect(() => {
     if (invalid) setError("recipient", { type: "invalid", message: invalid })
@@ -53,7 +53,7 @@ const AddAddressBookItem = () => {
   }
 
   return (
-    <Fetching isFetching={tnsState.isLoading}>
+    <Fetching isFetching={iqnsState.isLoading}>
       <Form onSubmit={handleSubmit(submit)}>
         <FormItem label={t("Name")} error={errors.name?.message}>
           <Input

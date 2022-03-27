@@ -11,7 +11,7 @@ import { useIqContracts } from "../Iq/IqAssets"
  * @param name - A IQNS identifier such as "alice.ust"
  * @returns The iq address of the specified name, null if not resolvable
  */
-export const useTnsAddress = (name: string) => {
+export const useIqnsAddress = (name: string) => {
   const lcd = useLCDClient()
   const { data: contracts } = useIqContracts()
 
@@ -20,7 +20,7 @@ export const useTnsAddress = (name: string) => {
     async () => {
       if (!contracts) return
 
-      const { tnsRegistry: registry } = contracts
+      const { iqnsRegistry: registry } = contracts
 
       /**
        * Get the resolver address of a given domain name.
@@ -54,7 +54,7 @@ export const useTnsAddress = (name: string) => {
  * @param address - A iq address
  * @returns The IQNS name of the specified address, null if not resolvable
  */
-export const useTnsName = (address: string) => {
+export const useIqnsName = (address: string) => {
   const lcd = useLCDClient()
   const { data: contracts } = useIqContracts()
 
@@ -63,7 +63,7 @@ export const useTnsName = (address: string) => {
     async () => {
       if (!contracts || !address) return
 
-      const { tnsReverseRecord: reverseRecord } = contracts
+      const { iqnsReverseRecord: reverseRecord } = contracts
 
       const { name } = await lcd.wasm.contractQuery<{ name: string | null }>(
         reverseRecord,

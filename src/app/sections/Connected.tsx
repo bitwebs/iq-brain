@@ -6,7 +6,7 @@ import QrCodeIcon from "@mui/icons-material/QrCode"
 import { truncate } from "@web4/brain-utils"
 import { useWallet } from "@web4/wallet-provider"
 import { useAddress } from "data/wallet"
-import { useTnsName } from "data/external/tns"
+import { useIqnsName } from "data/external/iqns"
 import { Button, Copy, FinderLink } from "components/general"
 import CopyStyles from "components/general/Copy.module.scss"
 import { Flex, Grid } from "components/layout"
@@ -22,7 +22,7 @@ const Connected = () => {
   const { disconnect } = useWallet()
   const address = useAddress()
   const { wallet } = useAuth()
-  const { data: name } = useTnsName(address ?? "")
+  const { data: name } = useIqnsName(address ?? "")
 
   /* hack to close popover */
   const [key, setKey] = useState(0)

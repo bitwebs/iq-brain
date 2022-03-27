@@ -62,8 +62,8 @@ export const useCW20Pairs = () => {
 export type ContractNames =
   | "assertLimitOrder"
   | "routeswap"
-  | "tnsRegistry"
-  | "tnsReverseRecord"
+  | "iqnsRegistry"
+  | "iqnsReverseRecord"
 
 export type IqContracts = Record<ContractNames, AccAddress>
 export const useIqContracts = () => {

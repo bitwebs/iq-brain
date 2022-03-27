@@ -88,6 +88,6 @@ const validate = {
 
 export default validate
 
-/* tns */
+/* iqns */
 export const validateRecipient = (address: string) =>
   AccAddress.validate(address) || address.endsWith(".ust")
