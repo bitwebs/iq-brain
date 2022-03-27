@@ -8,7 +8,7 @@ import { useIqContracts } from "../Iq/IqAssets"
 /**
  * Resolve iq address from a domain name.
  *
- * @param name - A TNS identifier such as "alice.ust"
+ * @param name - A IQNS identifier such as "alice.ust"
  * @returns The iq address of the specified name, null if not resolvable
  */
 export const useTnsAddress = (name: string) => {
@@ -16,7 +16,7 @@ export const useTnsAddress = (name: string) => {
   const { data: contracts } = useIqContracts()
 
   return useQuery(
-    [queryKey.TNS, name],
+    [queryKey.IQNS, name],
     async () => {
       if (!contracts) return
 
@@ -25,7 +25,7 @@ export const useTnsAddress = (name: string) => {
       /**
        * Get the resolver address of a given domain name.
        *
-       * @param name - A TNS identifier such as "alice.ust"
+       * @param name - A IQNS identifier such as "alice.ust"
        * @returns The Resolver contract address of the specified name, null if the domain does not exist.
        *
        * @see https://docs.ens.domains/#ens-architecture for the role of Resolver Contract
@@ -49,17 +49,17 @@ export const useTnsAddress = (name: string) => {
 }
 
 /**
- * Resolve TNS name from a iq address.
+ * Resolve IQNS name from a iq address.
  *
  * @param address - A iq address
- * @returns The TNS name of the specified address, null if not resolvable
+ * @returns The IQNS name of the specified address, null if not resolvable
  */
 export const useTnsName = (address: string) => {
   const lcd = useLCDClient()
   const { data: contracts } = useIqContracts()
 
   return useQuery(
-    [queryKey.TNS, address],
+    [queryKey.IQNS, address],
     async () => {
       if (!contracts || !address) return
 
@@ -79,7 +79,7 @@ export const useTnsName = (address: string) => {
 /**
  * Generate a unique hash for any valid domain name.
  *
- * @param name - A TNS identifier such as "alice.ust"
+ * @param name - A IQNS identifier such as "alice.ust"
  * @returns The result of namehash function in a {@link Buffer} form
  *
  * @see https://docs.ens.domains/contract-api-reference/name-processing#hashing-names
@@ -101,7 +101,7 @@ function namehash(name: string): Buffer {
  * Generate the output of the namehash function in a form of number array
  * which is supported by the contract query.
  *
- * @param name - A TNS identifier such as "alice.ust"
+ * @param name - A IQNS identifier such as "alice.ust"
  * @returns The result of namehash function in a number array format
  */
 function node(name: string): number[] {

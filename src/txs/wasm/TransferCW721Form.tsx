@@ -18,7 +18,7 @@ import validate from "../validate"
 import Tx, { getInitialGasDenom } from "../Tx"
 
 interface TxValues {
-  recipient?: string // AccAddress | TNS
+  recipient?: string // AccAddress | IQNS
   address?: AccAddress // hidden input
   memo?: string
 }

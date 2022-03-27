@@ -19,7 +19,7 @@ import validate from "../validate"
 import Tx, { getInitialGasDenom } from "../Tx"
 
 interface TxValues {
-  recipient?: string // AccAddress | TNS
+  recipient?: string // AccAddress | IQNS
   address?: AccAddress // hidden input
   input?: number
   memo?: string
@@ -128,7 +128,7 @@ const SendForm = ({ token, decimals, balance }: Props) => {
   }
 
   const bridge = (
-    <ExternalLink href="https://bridge.iq.money">Iq Bridge</ExternalLink>
+    <ExternalLink href="https://bridge.iqchain.network">Iq Bridge</ExternalLink>
   )
 
   const renderResolvedAddress = () => {

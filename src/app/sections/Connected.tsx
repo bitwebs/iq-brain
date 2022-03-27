@@ -42,7 +42,7 @@ const Connected = () => {
           <Grid gap={16}>
             <Grid gap={4}>
               <section>
-                <Tooltip content={t("View on Iq Finder")}>
+                <Tooltip content={t("View on Iq Explorer")}>
                   <FinderLink className={styles.link} short>
                     {address}
                   </FinderLink>
