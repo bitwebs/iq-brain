@@ -49,7 +49,7 @@ const ExportWalletForm = () => {
   /* render */
   const render = {
     [Mode.QR]: () => (
-      <QRCode value={`iqstation://wallet_recover/?payload=${encoded}`} />
+      <QRCode value={`iqhubble://wallet_recover/?payload=${encoded}`} />
     ),
     [Mode.KEY]: () => (
       <Pre normal break copy>

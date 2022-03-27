@@ -1,8 +1,8 @@
-# IQ Brain
+# IQ Hubble
 
-**IQ Brain** is a web application to interact with [IQ Core](https://github.com/bitwebs/iq-core).
+**IQ Hubble** is a web application to interact with [IQ Core](https://github.com/bitwebs/iq-core).
 
-IQ Brain allows users to:
+IQ Hubble allows users to:
 
 - View key macroeconomic metrics for Iq.
 - View the balances and values of coins and tokens held in the connected wallet.
@@ -17,15 +17,15 @@ IQ Brain allows users to:
 - Upload and instantiate new contracts and query from and execute messages to existing contracts.
 - Deposit and withdraw BUSD from Anchor Protocol.
 
-## Running Brain
+## Running Hubble
 
 This project was bootstrapped with [Create React App](https://create-react-app.dev/).
 
-Run Iq Station with the following commands:
+Run Iq Hubble with the following commands:
 
 ```
-git clone https://github.com/bitwebs/iq-brain.git
-cd iq-brain
+git clone https://github.com/bitwebs/iq-hubble.git
+cd iq-hubble
 npm i
 npm run start
 ```

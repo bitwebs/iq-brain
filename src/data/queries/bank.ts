@@ -1,6 +1,6 @@
 import { useQuery } from "react-query"
 import axios from "axios"
-import { isDenomIqNative } from "@web4/brain-utils"
+import { isDenomIqNative } from "@web4/hubble-utils"
 import { Coins } from "@web4/iq.js"
 import createContext from "utils/createContext"
 import { queryKey, RefetchOptions } from "../query"

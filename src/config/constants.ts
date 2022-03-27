@@ -9,12 +9,12 @@ export const ASSETS = "https://assets.iqchain.network"
 export const OBSERVER = "wss://observer.iqchain.network"
 
 /* website */
-export const STATION = "https://brain.iqchain.network"
+export const HUBBLE = "https://hubble.iqchain.network"
 export const FINDER = "https://explore.iqchain.network"
 export const EXTENSION =
   "https://chrome.google.com/webstore/detail/aiifbnbfobpmeekipheeijimdpnlpgpp"
 export const TUTORIAL =
-  "https://docs.iqchain.network/Tutorials/Get-started/IQ-Brain-desktop.html"
+  "https://docs.iqchain.network/Tutorials/Get-started/IQ-Hubble-desktop.html"
 
 /* website: stake */
 export const IQ_VALIDATORS =

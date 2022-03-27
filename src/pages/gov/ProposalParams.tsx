@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { readPercent } from "@web4/brain-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { useTallyParams } from "data/queries/gov"
 import { Card } from "components/layout"
 import DataList from "./components/DataList"

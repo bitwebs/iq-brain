@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from "react"
 import capitalize from "@mui/utils/capitalize"
-import { isDenom, truncate } from "@web4/brain-utils"
+import { isDenom, truncate } from "@web4/hubble-utils"
 import { AccAddress, Coin, Coins, ValAddress } from "@web4/iq.js"
 import { useAddress } from "data/wallet"
 import { useValidators } from "data/queries/staking"

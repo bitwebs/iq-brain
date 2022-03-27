@@ -39,6 +39,6 @@ getChainOptions().then((chainOptions) =>
         </BrowserRouter>
       </RecoilRoot>
     </StrictMode>,
-    document.getElementById("station")
+    document.getElementById("hubble")
   )
 )

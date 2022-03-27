@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import AddIcon from "@mui/icons-material/Add"
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined"
-import { truncate } from "@web4/brain-utils"
+import { truncate } from "@web4/hubble-utils"
 import { RenderButton } from "types/components"
 import { useAddressBook } from "data/settings/AddressBook"
 import { InternalButton } from "components/general"

@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
-import { isDenomIBC, isDenomIq } from "@web4/brain-utils"
-import { readDenom, truncate } from "@web4/brain-utils"
+import { isDenomIBC, isDenomIq } from "@web4/hubble-utils"
+import { readDenom, truncate } from "@web4/hubble-utils"
 import { AccAddress } from "@web4/iq.js"
 import { ASSETS } from "config/constants"
 import { useIBCBaseDenom } from "./queries/ibc"

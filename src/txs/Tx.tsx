@@ -10,7 +10,7 @@ import { head, isNil } from "ramda"
 
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
-import { isDenom, isDenomIBC, readDenom } from "@web4/brain-utils"
+import { isDenom, isDenomIBC, readDenom } from "@web4/hubble-utils"
 import { Coin, Coins, LCDClient } from "@web4/iq.js"
 import { CreateTxOptions, Fee } from "@web4/iq.js"
 import { ConnectType, UserDenied } from "@web4/wallet-provider"

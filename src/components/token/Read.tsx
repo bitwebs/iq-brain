@@ -1,7 +1,7 @@
 import { ForwardedRef, forwardRef, Fragment } from "react"
 import classNames from "classnames/bind"
-import { FormatConfig } from "@web4/brain-utils"
-import { formatPercent, readAmount, truncate } from "@web4/brain-utils"
+import { FormatConfig } from "@web4/hubble-utils"
+import { formatPercent, readAmount, truncate } from "@web4/hubble-utils"
 import { WithTokenItem } from "data/token"
 import styles from "./Read.module.scss"
 

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { formatNumber } from "@web4/brain-utils"
+import { formatNumber } from "@web4/hubble-utils"
 import { useCurrency } from "data/settings/Currency"
 import { useThemeAnimation } from "data/settings/Theme"
 import { ChartInterval, useBiqPriceChart } from "data/Iq/IqAPI"

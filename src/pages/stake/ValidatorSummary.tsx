@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { readPercent } from "@web4/brain-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { IqValidator } from "types/validator"
 import { calcSelfDelegation } from "data/Iq/IqAPI"
 import { useUptime } from "data/Iq/IqAPI"

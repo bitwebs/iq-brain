@@ -5,8 +5,8 @@ import { useQuery } from "react-query"
 import { useForm } from "react-hook-form"
 import BigNumber from "bignumber.js"
 import { AccAddress } from "@web4/iq.js"
-import { isDenomIq } from "@web4/brain-utils"
-import { toAmount } from "@web4/brain-utils"
+import { isDenomIq } from "@web4/hubble-utils"
+import { toAmount } from "@web4/hubble-utils"
 
 /* helpers */
 import { has } from "utils/num"

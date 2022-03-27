@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
-import { isDenomBiq, isDenomIq } from "@web4/brain-utils"
-import { readPercent } from "@web4/brain-utils"
+import { isDenomBiq, isDenomIq } from "@web4/hubble-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { toPrice } from "utils/num"
 import { useMarketParams } from "data/queries/market"
 import { useOracleParams } from "data/queries/oracle"

@@ -24,7 +24,7 @@ export default electron
 
 /* Download links */
 const DOWNLOAD =
-  "https://github.com/bitwebs/iq-brain-desktop/releases/download"
+  "https://github.com/bitwebs/iq-hubble-desktop/releases/download"
 
 export const links = [
   {
@@ -32,7 +32,7 @@ export const links = [
     list: [
       {
         label: "Installer",
-        link: `${DOWNLOAD}/v1.0.0/Iq.Station.Setup.1.0.0.exe`,
+        link: `${DOWNLOAD}/v1.0.0/Iq.Hubble.Setup.1.0.0.exe`,
       },
     ],
   },
@@ -41,11 +41,11 @@ export const links = [
     list: [
       {
         label: "Apple silicon",
-        link: `${DOWNLOAD}/v1.0.0/Iq.Station-1.0.0-arm64.dmg`,
+        link: `${DOWNLOAD}/v1.0.0/Iq.Hubble-1.0.0-arm64.dmg`,
       },
       {
         label: "Intel chip",
-        link: `${DOWNLOAD}/v1.0.0/Iq.Station-1.0.0.dmg`,
+        link: `${DOWNLOAD}/v1.0.0/Iq.Hubble-1.0.0.dmg`,
       },
     ],
   },
@@ -54,11 +54,11 @@ export const links = [
     list: [
       {
         label: "Debian",
-        link: `${DOWNLOAD}/v1.0.0/Iq.Station_1.0.0_amd64.deb`,
+        link: `${DOWNLOAD}/v1.0.0/Iq.Hubble_1.0.0_amd64.deb`,
       },
       {
         label: "Red hat",
-        link: `${DOWNLOAD}/v1.0.0/Iq.Station-1.0.0.x86_64.rpm`,
+        link: `${DOWNLOAD}/v1.0.0/Iq.Hubble-1.0.0.x86_64.rpm`,
       },
     ],
   },

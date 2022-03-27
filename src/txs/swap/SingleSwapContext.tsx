@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react"
 import { flatten, uniq, zipObj } from "ramda"
 import BigNumber from "bignumber.js"
-import { isDenomIBC, toAmount } from "@web4/brain-utils"
+import { isDenomIBC, toAmount } from "@web4/hubble-utils"
 import { AccAddress } from "@web4/iq.js"
 import { getAmount, sortDenoms } from "utils/coin"
 import { toPrice } from "utils/num"

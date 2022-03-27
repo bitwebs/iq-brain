@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { toAmount } from "@web4/brain-utils"
+import { toAmount } from "@web4/hubble-utils"
 
 /* animation */
 import AnimationLight from "./Light/Broadcasting.png"

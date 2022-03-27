@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { readAmount } from "@web4/brain-utils"
+import { readAmount } from "@web4/hubble-utils"
 import { combineState } from "data/query"
 import { useSupply } from "data/queries/bank"
 import { useStakingPool } from "data/queries/staking"

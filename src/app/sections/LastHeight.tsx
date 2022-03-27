@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import classNames from "classnames"
-import { formatNumber } from "@web4/brain-utils"
+import { formatNumber } from "@web4/hubble-utils"
 import { useIqObserver } from "data/Iq/IqObserver"
 import { FinderLink } from "components/general"
 import { Flex } from "components/layout"

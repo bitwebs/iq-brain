@@ -1,7 +1,7 @@
 import { HTMLAttributes, useState } from "react"
 import classNames from "classnames/bind"
 import { AccAddress } from "@web4/iq.js"
-import { isDenomIBC } from "@web4/brain-utils"
+import { isDenomIBC } from "@web4/hubble-utils"
 import { getIcon } from "data/token"
 import styles from "./TokenIcon.module.scss"
 

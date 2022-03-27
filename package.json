@@ -1,9 +1,9 @@
 {
-  "name": "iq-brain",
+  "name": "iq-hubble",
   "description": "A web application to interact with IQ Core.",
-  "hompage": "https://brain.iqchain.network",
+  "hompage": "https://hubble.iqchain.network",
   "author": "Iq <labs@bitweb.org> (https://iqchain.network)",
-  "repository": "github:bitwebs/iq-brain",
+  "repository": "github:bitwebs/iq-hubble",
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
@@ -18,7 +18,7 @@
     "@ledgerhq/hw-transport-web-ble": "^6.24.1",
     "@mui/icons-material": "^5.4.4",
     "@mui/material": "^5.4.4",
-    "@web4/brain-utils": "^0.0.1",
+    "@web4/hubble-utils": "^0.0.1",
     "@web4/iq.js": "^0.0.1",
     "@web4/ledger-iq-js": "^0.0.1",
     "@web4/log-finder-ruleset": "^1.0.0",

@@ -10,7 +10,7 @@ import styles from "./Modal.module.scss"
 
 const cx = classNames.bind(styles)
 
-ReactModal.setAppElement("#station")
+ReactModal.setAppElement("#hubble")
 
 interface ModalProps {
   closeIcon?: ReactNode

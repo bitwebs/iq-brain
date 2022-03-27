@@ -2,7 +2,7 @@ import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import VerifiedIcon from "@mui/icons-material/Verified"
-import { readPercent } from "@web4/brain-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { Validator } from "@web4/iq.js"
 /* FIXME(iq.js): Import from iq.js */
 import { BondStatus } from "@web4/iq.proto/cosmos/staking/v1beta1/staking"

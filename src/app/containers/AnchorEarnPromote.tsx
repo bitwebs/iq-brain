@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { readPercent } from "@web4/brain-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { useAnchorAPY } from "data/external/anchor"
 import { Card } from "components/layout"
 import AnchorEarnLogo from "styles/images/AnchorEarn/AnchorEarnLogo"

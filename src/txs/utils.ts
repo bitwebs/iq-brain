@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js"
-import { readAmount, toAmount } from "@web4/brain-utils"
+import { readAmount, toAmount } from "@web4/hubble-utils"
 import { Coin, Coins } from "@web4/iq.js"
 import { has } from "utils/num"
 

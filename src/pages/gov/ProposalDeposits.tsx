@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import BigNumber from "bignumber.js"
-import { readPercent } from "@web4/brain-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { getAmount } from "utils/coin"
 import { combineState } from "data/query"
 import { useProposal } from "data/queries/gov"

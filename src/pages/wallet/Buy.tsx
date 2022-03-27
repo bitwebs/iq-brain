@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import qs from "qs"
-import { readDenom } from "@web4/brain-utils"
+import { readDenom } from "@web4/hubble-utils"
 import { ReactComponent as Binance } from "styles/images/exchanges/Binance.svg"
 import { ReactComponent as KuCoin } from "styles/images/exchanges/KuCoin.svg"
 import { ReactComponent as Huobi } from "styles/images/exchanges/Huobi.svg"

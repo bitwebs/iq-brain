@@ -1,5 +1,5 @@
 import { Coins } from "@web4/iq.js"
-import { isDenom, isDenomIBC } from "@web4/brain-utils"
+import { isDenom, isDenomIBC } from "@web4/hubble-utils"
 
 /* coin */
 export const getAmount = (coins: Coins, denom: Denom, fallback = "0") => {

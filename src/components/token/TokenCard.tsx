@@ -1,7 +1,7 @@
 import { FC } from "react"
 import classNames from "classnames/bind"
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
-import { FormatConfig } from "@web4/brain-utils"
+import { FormatConfig } from "@web4/hubble-utils"
 import { getMaxHeightStyle } from "utils/style"
 import { useCurrency } from "data/settings/Currency"
 import { Flex } from "../layout"

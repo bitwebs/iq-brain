@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { isDenomIqNative } from "@web4/brain-utils"
+import { isDenomIqNative } from "@web4/hubble-utils"
 import { getAmount, sortCoins } from "utils/coin"
 import createContext from "utils/createContext"
 import { useCurrency } from "data/settings/Currency"

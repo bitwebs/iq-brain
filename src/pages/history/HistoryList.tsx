@@ -19,7 +19,7 @@ const HistoryList = () => {
   const fetchAccountHistory = useCallback(
     async ({ pageParam = 0 }) => {
       const { data } = await axios.get<AccountHistory>(
-        `tx-history/station/${address}`,
+        `tx-history/hubble/${address}`,
         { baseURL, params: { offset: pageParam || undefined } }
       )
 

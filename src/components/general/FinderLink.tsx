@@ -1,6 +1,6 @@
 import { FC, ForwardedRef, forwardRef, HTMLAttributes } from "react"
 import classNames from "classnames"
-import { truncate } from "@web4/brain-utils"
+import { truncate } from "@web4/hubble-utils"
 import { FINDER } from "config/constants"
 import { useNetworkName } from "data/wallet"
 import ExternalLink from "./ExternalLink"

@@ -1,6 +1,6 @@
 import classNames from "classnames/bind"
 import BigNumber from "bignumber.js"
-import { readPercent } from "@web4/brain-utils"
+import { readPercent } from "@web4/hubble-utils"
 import { ReactComponent as Tilde } from "./Tilde.svg"
 import styles from "./Orb.module.scss"
 

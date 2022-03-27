@@ -1,4 +1,4 @@
-import { readDenom } from "@web4/brain-utils"
+import { readDenom } from "@web4/hubble-utils"
 import { useActiveDenoms } from "data/queries/oracle"
 import { useCurrencyState } from "data/settings/Currency"
 import { RadioGroup } from "components/form"

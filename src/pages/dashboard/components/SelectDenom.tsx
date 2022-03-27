@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { isDenomIqNative } from "@web4/brain-utils"
+import { isDenomIqNative } from "@web4/hubble-utils"
 import { WithTokenItem } from "data/token"
 import { ModalButton } from "components/feedback"
 import { TokenCard, TokenCardGrid } from "components/token"
