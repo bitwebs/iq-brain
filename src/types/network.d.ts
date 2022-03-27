@@ -1,7 +1,7 @@
 type NetworkName = string
-type TerraNetworks = Record<NetworkName, TerraNetwork>
+type IqNetworks = Record<NetworkName, IqNetwork>
 
-interface TerraNetwork {
+interface IqNetwork {
   name: NetworkName
   chainID: string
   lcd: string
@@ -9,6 +9,6 @@ interface TerraNetwork {
 
 type CustomNetworks = Record<NetworkName, CustomNetwork>
 
-interface CustomNetwork extends TerraNetwork {
+interface CustomNetwork extends IqNetwork {
   preconfigure?: boolean
 }

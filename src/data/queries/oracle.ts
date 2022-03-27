@@ -12,7 +12,7 @@ export const useActiveDenoms = () => {
     [queryKey.oracle.activeDenoms],
     async () => {
       const activeDenoms = await lcd.oracle.activeDenoms()
-      return sortDenoms(["uluna", ...activeDenoms])
+      return sortDenoms(["ubiq", ...activeDenoms])
     },
     { ...RefetchOptions.INFINITY }
   )
@@ -44,7 +44,7 @@ export const useMemoizedPrices = (currency: Denom) => {
     const base = toPrice(getAmount(exchangeRates, currency, "1"))
 
     return {
-      uluna: base,
+      ubiq: base,
       ...sortCoins(exchangeRates, currency).reduce((acc, { amount, denom }) => {
         const price = toPrice(Number(base) / Number(amount))
         return { ...acc, [denom]: price }

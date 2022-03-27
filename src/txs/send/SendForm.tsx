@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useForm } from "react-hook-form"
 import PersonIcon from "@mui/icons-material/Person"
-import { AccAddress } from "@terra-money/terra.js"
-import { MsgExecuteContract, MsgSend } from "@terra-money/terra.js"
-import { isDenom, toAmount, truncate } from "@terra.kitchen/utils"
+import { AccAddress } from "@web4/iq.js"
+import { MsgExecuteContract, MsgSend } from "@web4/iq.js"
+import { isDenom, toAmount, truncate } from "@web4/brain-utils"
 import { SAMPLE_ADDRESS } from "config/constants"
 import { queryKey } from "data/query"
 import { useAddress } from "data/wallet"
@@ -128,7 +128,7 @@ const SendForm = ({ token, decimals, balance }: Props) => {
   }
 
   const bridge = (
-    <ExternalLink href="https://bridge.terra.money">Terra Bridge</ExternalLink>
+    <ExternalLink href="https://bridge.iq.money">Iq Bridge</ExternalLink>
   )
 
   const renderResolvedAddress = () => {

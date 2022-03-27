@@ -1,12 +1,12 @@
 import { useQueries, useQuery } from "react-query"
 import axios from "axios"
-import { AccAddress } from "@terra-money/terra.js"
+import { AccAddress } from "@web4/iq.js"
 import { queryKey, RefetchOptions } from "../query"
 import { useAddress } from "../wallet"
 import { useLCDClient } from "./lcdClient"
 
 /* contract info */
-export const useContractInfo = (address: TerraAddress) => {
+export const useContractInfo = (address: IqAddress) => {
   const lcd = useLCDClient()
   return useQuery(
     [queryKey.wasm.contractInfo, address],
@@ -15,7 +15,7 @@ export const useContractInfo = (address: TerraAddress) => {
   )
 }
 
-export const useInitMsg = <T>(address: TerraAddress) => {
+export const useInitMsg = <T>(address: IqAddress) => {
   const lcd = useLCDClient()
   return useQuery<T>(
     [queryKey.wasm.contractInfo, "initMsg", address],
@@ -47,7 +47,7 @@ export const useContractQuery = <T>(contract?: AccAddress, query?: object) => {
 }
 
 /* token info */
-export const useTokenInfoCW20 = (token: TerraAddress, enabled = true) => {
+export const useTokenInfoCW20 = (token: IqAddress, enabled = true) => {
   const getQuery = useGetContractQuery()
   return useQuery({
     ...getQuery<CW20TokenInfoResponse>(token, { token_info: {} }),

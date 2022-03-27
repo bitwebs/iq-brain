@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form"
 import BigNumber from "bignumber.js"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
-import { isDenomTerraNative, readDenom } from "@terra.kitchen/utils"
-import { Validator, ValAddress, Coin, MsgSwap } from "@terra-money/terra.js"
-import { Rewards } from "@terra-money/terra.js"
-import { MsgWithdrawDelegatorReward } from "@terra-money/terra.js"
+import { isDenomIqNative, readDenom } from "@web4/brain-utils"
+import { Validator, ValAddress, Coin, MsgSwap } from "@web4/iq.js"
+import { Rewards } from "@web4/iq.js"
+import { MsgWithdrawDelegatorReward } from "@web4/iq.js"
 import { sortDenoms } from "utils/coin"
 import { SettingKey } from "utils/localStorage"
 import { getLocalSetting, setLocalSetting } from "utils/localStorage"
@@ -51,7 +51,7 @@ const WithdrawRewardsForm = ({ rewards, validators, ...props }: Props) => {
   /* as another denom */
   const preferredDenom = getLocalSetting<Denom>(SettingKey.WithdrawAs)
   const [swap, setSwap] = useState(!!preferredDenom)
-  const [target, setTarget] = useState(preferredDenom || "uluna")
+  const [target, setTarget] = useState(preferredDenom || "ubiq")
   useEffect(() => {
     if (!swap) setLocalSetting(SettingKey.WithdrawAs, "")
   }, [swap])
@@ -101,7 +101,7 @@ const WithdrawRewardsForm = ({ rewards, validators, ...props }: Props) => {
     async ({ queryKey: [, selectedTotal, target] }) => {
       const responses = await Promise.allSettled(
         Object.entries(selectedTotal)
-          .filter(([denom]) => isDenomTerraNative(denom))
+          .filter(([denom]) => isDenomIqNative(denom))
           .map(async ([denom, amount]) => {
             if (denom === target) return amount
 
@@ -146,7 +146,7 @@ const WithdrawRewardsForm = ({ rewards, validators, ...props }: Props) => {
 
     if (swap) {
       const swapMsgs = Object.entries(selectedTotal)
-        .filter(([denom]) => isDenomTerraNative(denom) && denom !== target)
+        .filter(([denom]) => isDenomIqNative(denom) && denom !== target)
         .map(
           ([denom, amount]) =>
             new MsgSwap(address, new Coin(denom, amount), target)
@@ -284,7 +284,7 @@ const WithdrawRewardsForm = ({ rewards, validators, ...props }: Props) => {
                     .filter(([denom]) => {
                       const isListedIBC =
                         IBCWhitelist[denom.replace("ibc/", "")]
-                      return isDenomTerraNative(denom) || isListedIBC
+                      return isDenomIqNative(denom) || isListedIBC
                     })
                     .map(([denom, amount]) => (
                       <WithTokenItem token={denom} key={denom}>

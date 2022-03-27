@@ -1,7 +1,7 @@
 import { HTMLAttributes, useState } from "react"
 import classNames from "classnames/bind"
-import { AccAddress } from "@terra-money/terra.js"
-import { isDenomIBC } from "@terra.kitchen/utils"
+import { AccAddress } from "@web4/iq.js"
+import { isDenomIBC } from "@web4/brain-utils"
 import { getIcon } from "data/token"
 import styles from "./TokenIcon.module.scss"
 
@@ -20,7 +20,7 @@ const TokenIcon = ({ token, icon, size, ...rest }: Props) => {
     ? getIcon("CW.svg")
     : isDenomIBC(token)
     ? getIcon("IBC.svg")
-    : getIcon("Terra.svg")
+    : getIcon("Iq.svg")
 
   const src = !icon || isError ? defaultIcon : icon
   const sizes =

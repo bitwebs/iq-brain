@@ -27,7 +27,7 @@ const ProposalDepositors = ({ id }: { id: number }) => {
               title: t("Amount"),
               dataIndex: "amount",
               render: (amount) => (
-                <Read amount={getAmount(amount, "uluna")} denom="uluna" />
+                <Read amount={getAmount(amount, "ubiq")} denom="ubiq" />
               ),
               align: "right",
             },

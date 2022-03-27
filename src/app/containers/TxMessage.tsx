@@ -1,11 +1,11 @@
 import { ReactNode, useMemo } from "react"
 import capitalize from "@mui/utils/capitalize"
-import { isDenom, truncate } from "@terra.kitchen/utils"
-import { AccAddress, Coin, Coins, ValAddress } from "@terra-money/terra.js"
+import { isDenom, truncate } from "@web4/brain-utils"
+import { AccAddress, Coin, Coins, ValAddress } from "@web4/iq.js"
 import { useAddress } from "data/wallet"
 import { useValidators } from "data/queries/staking"
 import { WithTokenItem } from "data/token"
-import { useCW20Contracts, useCW20Whitelist } from "data/Terra/TerraAssets"
+import { useCW20Contracts, useCW20Whitelist } from "data/Iq/IqAssets"
 import { FinderLink } from "components/general"
 import { Read } from "components/token"
 
@@ -22,7 +22,7 @@ const ValidatorAddress = ({ children: address }: { children: string }) => {
   )
 }
 
-const TerraAddress = ({ children: address }: { children: string }) => {
+const IqAddress = ({ children: address }: { children: string }) => {
   const { data: contracts } = useCW20Contracts()
   const { data: tokens } = useCW20Whitelist()
   const connectedAddress = useAddress()
@@ -76,7 +76,7 @@ const TxMessage = ({ children: sentence, className }: Props) => {
     return validateTokens(word) ? (
       <Tokens>{word}</Tokens>
     ) : AccAddress.validate(word) ? (
-      <TerraAddress>{word}</TerraAddress>
+      <IqAddress>{word}</IqAddress>
     ) : ValAddress.validate(word) ? (
       <ValidatorAddress>{word}</ValidatorAddress>
     ) : !index ? (

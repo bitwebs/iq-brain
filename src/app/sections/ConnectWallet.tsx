@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import UsbIcon from "@mui/icons-material/Usb"
-import { useWallet } from "@terra-money/wallet-provider"
+import { useWallet } from "@web4/wallet-provider"
 import { STATION } from "config/constants"
 import { RenderButton } from "types/components"
 import { useAddress } from "data/wallet"
@@ -61,7 +61,7 @@ const ConnectWallet = ({ renderButton }: Props) => {
         <List list={available.length ? available : list} />
         {!!available.length && (
           <FormHelp>
-            Use <ExternalLink href={STATION}>Terra Station</ExternalLink> on the
+            Use <ExternalLink href={STATION}>Iq Station</ExternalLink> on the
             browser to access with Ledger device
           </FormHelp>
         )}

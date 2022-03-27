@@ -3,17 +3,17 @@ import { Buffer } from "buffer"
 import keccak256 from "keccak256"
 import { queryKey, RefetchOptions } from "../query"
 import { useLCDClient } from "../queries/lcdClient"
-import { useTerraContracts } from "../Terra/TerraAssets"
+import { useIqContracts } from "../Iq/IqAssets"
 
 /**
- * Resolve terra address from a domain name.
+ * Resolve iq address from a domain name.
  *
  * @param name - A TNS identifier such as "alice.ust"
- * @returns The terra address of the specified name, null if not resolvable
+ * @returns The iq address of the specified name, null if not resolvable
  */
 export const useTnsAddress = (name: string) => {
   const lcd = useLCDClient()
-  const { data: contracts } = useTerraContracts()
+  const { data: contracts } = useIqContracts()
 
   return useQuery(
     [queryKey.TNS, name],
@@ -39,7 +39,7 @@ export const useTnsAddress = (name: string) => {
 
       const { address } = await lcd.wasm.contractQuery<{ address: string }>(
         resolver,
-        { get_terra_address: { node: node(name) } }
+        { get_iq_address: { node: node(name) } }
       )
 
       return address
@@ -49,14 +49,14 @@ export const useTnsAddress = (name: string) => {
 }
 
 /**
- * Resolve TNS name from a terra address.
+ * Resolve TNS name from a iq address.
  *
- * @param address - A terra address
+ * @param address - A iq address
  * @returns The TNS name of the specified address, null if not resolvable
  */
 export const useTnsName = (address: string) => {
   const lcd = useLCDClient()
-  const { data: contracts } = useTerraContracts()
+  const { data: contracts } = useIqContracts()
 
   return useQuery(
     [queryKey.TNS, address],

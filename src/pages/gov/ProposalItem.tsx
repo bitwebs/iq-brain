@@ -1,4 +1,4 @@
-import { Proposal } from "@terra-money/terra.js"
+import { Proposal } from "@web4/iq.js"
 import { FlexColumn } from "components/layout"
 import ProposalVotes from "./ProposalVotes"
 import ProposalHeader from "./ProposalHeader"

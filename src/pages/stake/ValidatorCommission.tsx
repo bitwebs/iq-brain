@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next"
-import { readPercent } from "@terra.kitchen/utils"
-import { TerraValidator } from "types/validator"
-import { useUptime } from "data/Terra/TerraAPI"
+import { readPercent } from "@web4/brain-utils"
+import { IqValidator } from "types/validator"
+import { useUptime } from "data/Iq/IqAPI"
 import { Card } from "components/layout"
 import { ToNow } from "components/display"
 import ValidatorNumbers from "./components/ValidatorNumbers"
 
-const ValidatorCommission = ({ validator }: { validator: TerraValidator }) => {
+const ValidatorCommission = ({ validator }: { validator: IqValidator }) => {
   const { t } = useTranslation()
 
   const { commission } = validator

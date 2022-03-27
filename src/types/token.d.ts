@@ -1,13 +1,13 @@
-type TerraAddress = string
+type IqAddress = string
 
 type Amount = string
 type Value = string | number
 type Price = number
 
 /* coin | token */
-type CoinDenom = string // uluna | uusd
+type CoinDenom = string // ubiq | uusd
 type IBCDenom = string // ibc/...
-type TokenAddress = TerraAddress
+type TokenAddress = IqAddress
 type Denom = CoinDenom | IBCDenom
 type Token = Denom | TokenAddress
 
@@ -24,12 +24,12 @@ interface AssetInfoNativeToken {
 }
 
 interface AssetInfoCW20Token {
-  token: { contract_addr: TerraAddress }
+  token: { contract_addr: IqAddress }
 }
 
 /* token item */
 interface TokenItem {
-  token: TerraAddress
+  token: IqAddress
   decimals: number
   symbol: string
   name?: string
@@ -62,8 +62,8 @@ interface IBCTokenItem extends IBCTokenInfoResponse {
 }
 
 /* cw20 */
-type CW20Contracts = Record<TerraAddress, CW20ContractItem>
-type CW20Whitelist = Record<TerraAddress, CW20TokenItem>
+type CW20Contracts = Record<IqAddress, CW20ContractItem>
+type CW20Whitelist = Record<IqAddress, CW20TokenItem>
 
 interface CW20ContractItem {
   protocol: string
@@ -78,14 +78,14 @@ interface CW20TokenInfoResponse {
 }
 
 interface CW20TokenItem extends CW20TokenInfoResponse {
-  token: TerraAddress
+  token: IqAddress
   protocol?: string
   icon?: string
 }
 
 /* cw20: pair */
-type CW20Pairs = Record<TerraAddress, PairDetails>
-type Dex = "terraswap" | "astroport"
+type CW20Pairs = Record<IqAddress, PairDetails>
+type Dex = "iqswap" | "astroport"
 type PairType = "xyk" | "stable"
 interface PairDetails {
   dex: Dex
@@ -103,14 +103,14 @@ interface CW721ContractInfoResponse {
 }
 
 interface CW721ContractItem extends CW721ContractInfoResponse {
-  contract: TerraAddress
+  contract: IqAddress
   protocol?: string
   icon?: string
   homepage?: string
   marketplace?: string[]
 }
 
-type CW721Whitelist = Record<TerraAddress, CW721ContractItem>
+type CW721Whitelist = Record<IqAddress, CW721ContractItem>
 
 interface NFTTokenItem {
   token_uri?: string

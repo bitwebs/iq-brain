@@ -1,6 +1,6 @@
-import { Vote } from "@terra-money/terra.js"
+import { Vote } from "@web4/iq.js"
 
-export interface TerraProposalItem {
+export interface IqProposalItem {
   voter: string
   options: { option: Vote.Option; weight: string }[]
 }

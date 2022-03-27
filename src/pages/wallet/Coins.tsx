@@ -7,7 +7,7 @@ import { useCurrency } from "data/settings/Currency"
 import { useMinimumValue } from "data/settings/MinimumValue"
 import { readNativeDenom } from "data/token"
 import { useBankBalance } from "data/queries/bank"
-import { useIsWalletEmpty, useTerraNativeLength } from "data/queries/bank"
+import { useIsWalletEmpty, useIqNativeLength } from "data/queries/bank"
 import { useActiveDenoms } from "data/queries/oracle"
 import { useMemoizedCalcValue } from "data/queries/oracle"
 import { InternalLink } from "components/general"
@@ -21,7 +21,7 @@ import styles from "./Coins.module.scss"
 const Coins = () => {
   const { t } = useTranslation()
   const currency = useCurrency()
-  const length = useTerraNativeLength()
+  const length = useIqNativeLength()
   const isWalletEmpty = useIsWalletEmpty()
   const { data: denoms, ...state } = useActiveDenoms()
   const coins = useCoins(denoms)
@@ -100,7 +100,7 @@ export const useCoins = (denoms?: Denom[]) => {
       return { denom, balance, value: value, $: valueByUST }
     })
     .filter(
-      ({ denom, balance }) => ["uluna", "uusd"].includes(denom) || has(balance)
+      ({ denom, balance }) => ["ubiq", "uusd"].includes(denom) || has(balance)
     )
 
   const coins = sortByDenom(

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { useCW721Marketplace } from "data/Terra/TerraAssets"
+import { useCW721Marketplace } from "data/Iq/IqAssets"
 import { ExternalLink } from "components/general"
 import { Card } from "components/layout"
 import styles from "./NFTMarketplace.module.scss"

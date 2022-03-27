@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { isDenomTerraNative } from "@terra.kitchen/utils"
+import { isDenomIqNative } from "@web4/brain-utils"
 import { WithTokenItem } from "data/token"
 import { ModalButton } from "components/feedback"
 import { TokenCard, TokenCardGrid } from "components/token"
@@ -23,7 +23,7 @@ const SelectDenom = ({ title, list }: Props) => {
     >
       <TokenCardGrid maxHeight>
         {list
-          .filter(({ denom }) => isDenomTerraNative(denom))
+          .filter(({ denom }) => isDenomIqNative(denom))
           .map(({ amount, denom, value }) => (
             <WithTokenItem token={denom} key={denom}>
               {(item) => (

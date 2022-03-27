@@ -1,7 +1,7 @@
-import { Validator } from "@terra-money/terra.js"
+import { Validator } from "@web4/iq.js"
 import { Contacts } from "./components"
 
-export interface TerraValidator extends Validator.Data {
+export interface IqValidator extends Validator.Data {
   picture?: string
   contact?: Contacts
   miss_counter?: string

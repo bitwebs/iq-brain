@@ -3,7 +3,7 @@ import { render } from "react-dom"
 import { BrowserRouter } from "react-router-dom"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
-import { getChainOptions, WalletProvider } from "@terra-money/wallet-provider"
+import { getChainOptions, WalletProvider } from "@web4/wallet-provider"
 import "tippy.js/dist/tippy.css"
 
 import "config/lang"

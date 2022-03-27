@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useForm } from "react-hook-form"
-import { AccAddress, Coin, ValAddress } from "@terra-money/terra.js"
-import { Delegation, Validator } from "@terra-money/terra.js"
-import { MsgDelegate, MsgUndelegate } from "@terra-money/terra.js"
-import { MsgBeginRedelegate } from "@terra-money/terra.js"
-import { toAmount } from "@terra.kitchen/utils"
+import { AccAddress, Coin, ValAddress } from "@web4/iq.js"
+import { Delegation, Validator } from "@web4/iq.js"
+import { MsgDelegate, MsgUndelegate } from "@web4/iq.js"
+import { MsgBeginRedelegate } from "@web4/iq.js"
+import { toAmount } from "@web4/brain-utils"
 import { getAmount } from "utils/coin"
 import { queryKey } from "data/query"
 import { useAddress } from "data/wallet"
@@ -72,7 +72,7 @@ const StakeForm = ({ tab, destination, validators, delegations }: Props) => {
       if (!address) return
 
       const amount = toAmount(input)
-      const coin = new Coin("uluna", amount)
+      const coin = new Coin("ubiq", amount)
 
       if (tab === StakeAction.REDELEGATE) {
         if (!source) return
@@ -92,7 +92,7 @@ const StakeForm = ({ tab, destination, validators, delegations }: Props) => {
 
   /* fee */
   const balance = {
-    [StakeAction.DELEGATE]: getAmount(bankBalance, "uluna"),
+    [StakeAction.DELEGATE]: getAmount(bankBalance, "ubiq"),
     [StakeAction.REDELEGATE]:
       (source && findDelegation(source)?.balance.amount.toString()) ?? "0",
     [StakeAction.UNBOND]:
@@ -115,7 +115,7 @@ const StakeForm = ({ tab, destination, validators, delegations }: Props) => {
     [setValue, trigger]
   )
 
-  const token = tab === StakeAction.DELEGATE ? "uluna" : ""
+  const token = tab === StakeAction.DELEGATE ? "ubiq" : ""
   const tx = {
     token,
     amount,
@@ -205,7 +205,7 @@ const StakeForm = ({ tab, destination, validators, delegations }: Props) => {
                 valueAsNumber: true,
                 validate: validate.input(toInput(max.amount)),
               })}
-              token="uluna"
+              token="ubiq"
               onFocus={max.reset}
               inputMode="decimal"
               placeholder={getPlaceholder()}

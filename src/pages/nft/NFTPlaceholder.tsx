@@ -2,7 +2,7 @@ import { useState } from "react"
 import { groupBy } from "ramda"
 import classNames from "classnames/bind"
 import useInterval from "utils/hooks/useInterval"
-import { useCW721Whitelist } from "data/Terra/TerraAssets"
+import { useCW721Whitelist } from "data/Iq/IqAssets"
 import { Flex } from "components/layout"
 import styles from "./NFTPlaceholder.module.scss"
 

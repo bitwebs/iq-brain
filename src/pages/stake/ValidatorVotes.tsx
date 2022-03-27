@@ -2,14 +2,14 @@ import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { reverse } from "ramda"
-import { readPercent } from "@terra.kitchen/utils"
-import { TerraValidator } from "types/validator"
+import { readPercent } from "@web4/brain-utils"
+import { IqValidator } from "types/validator"
 import { useGetVoteOptionItem } from "data/queries/gov"
-import { useVotingPowerRate } from "data/Terra/TerraAPI"
+import { useVotingPowerRate } from "data/Iq/IqAPI"
 import { Card, Grid, Table } from "components/layout"
 import ValidatorNumbers from "./components/ValidatorNumbers"
 
-const ValidatorVotes = ({ validator }: { validator: TerraValidator }) => {
+const ValidatorVotes = ({ validator }: { validator: IqValidator }) => {
   const { t } = useTranslation()
   const getVoteOptionItem = useGetVoteOptionItem()
 

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import BigNumber from "bignumber.js"
-import { readPercent } from "@terra.kitchen/utils"
+import { readPercent } from "@web4/brain-utils"
 import { getAmount } from "utils/coin"
 import { combineState } from "data/query"
 import { useProposal } from "data/queries/gov"
@@ -29,11 +29,11 @@ const ProposalDeposits = ({ id, card }: Props) => {
     const getProposalDeposited = () => {
       const deposited = deposits.reduce(
         (acc, { amount }) =>
-          new BigNumber(acc).plus(getAmount(amount, "uluna")).toString(),
+          new BigNumber(acc).plus(getAmount(amount, "ubiq")).toString(),
         "0"
       )
 
-      const minimum = getAmount(depositParams.min_deposit, "uluna")
+      const minimum = getAmount(depositParams.min_deposit, "ubiq")
       const ratio = Number(deposited) / Number(minimum)
       return { deposited, ratio }
     }
@@ -44,7 +44,7 @@ const ProposalDeposits = ({ id, card }: Props) => {
     const contents = [
       {
         title: t("Deposited"),
-        content: <Read amount={deposited} denom="uluna" />,
+        content: <Read amount={deposited} denom="ubiq" />,
       },
       {
         title: t("Deposit end time"),

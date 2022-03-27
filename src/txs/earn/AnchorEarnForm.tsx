@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { useCallback, useMemo } from "react"
 import { useForm } from "react-hook-form"
-import { toAmount } from "@terra.kitchen/utils"
+import { toAmount } from "@web4/brain-utils"
 import { getAmount } from "utils/coin"
 import { queryKey } from "data/query"
 import { useBankBalance } from "data/queries/bank"

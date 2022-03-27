@@ -1,6 +1,6 @@
-import { AccAddress } from "@terra-money/terra.js"
+import { AccAddress } from "@web4/iq.js"
 import { useCustomTokensCW721 } from "data/settings/CustomTokens"
-import { useCW721Whitelist } from "data/Terra/TerraAssets"
+import { useCW721Whitelist } from "data/Iq/IqAssets"
 import { useInitMsg } from "data/queries/wasm"
 import { Fetching } from "components/feedback"
 import WithSearchInput from "./WithSearchInput"
@@ -14,7 +14,7 @@ interface Props {
 const Component = ({ whitelist, keyword }: Props) => {
   const manage = useCustomTokensCW721()
 
-  type Added = Record<TerraAddress, CustomTokenCW721>
+  type Added = Record<IqAddress, CustomTokenCW721>
   const added = manage.list.reduce<Added>(
     (acc, item) => ({ ...acc, [item.contract]: item }),
     {}

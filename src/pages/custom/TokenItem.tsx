@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import classNames from "classnames/bind"
 import AddIcon from "@mui/icons-material/Add"
 import CheckIcon from "@mui/icons-material/Check"
-import { truncate } from "@terra.kitchen/utils"
+import { truncate } from "@web4/brain-utils"
 import { FinderLink } from "components/general"
 import { Token } from "components/token"
 import styles from "./TokenItem.module.scss"
@@ -14,7 +14,7 @@ export interface TokenItemProps {
   token: Token
   title: string // ibc:symbol | cw20:symbol | cw721:name
   icon?: string
-  contract?: TerraAddress // cw20 | cw721
+  contract?: IqAddress // cw20 | cw721
   decimals?: number
   key: string
 }

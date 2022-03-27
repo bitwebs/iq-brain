@@ -2,7 +2,7 @@ import { useQuery } from "react-query"
 import axios, { AxiosError } from "axios"
 import { fromPairs, toPairs } from "ramda"
 import { flatten, groupBy, map, mergeAll, values } from "ramda"
-import { AccAddress } from "@terra-money/terra.js"
+import { AccAddress } from "@web4/iq.js"
 import { ASSETS } from "config/constants"
 import shuffle from "utils/shuffle"
 import { queryKey, RefetchOptions } from "../query"
@@ -10,9 +10,9 @@ import { useNetworkName } from "../wallet"
 
 const config = { baseURL: ASSETS }
 
-export const useTerraAssets = <T>(path: string, callback?: (data: T) => T) => {
+export const useIqAssets = <T>(path: string, callback?: (data: T) => T) => {
   return useQuery<T, AxiosError>(
-    [queryKey.TerraAssets, path],
+    [queryKey.IqAssets, path],
     async () => {
       const { data } = await axios.get<T>(path, config)
       return callback?.(data) ?? data
@@ -21,7 +21,7 @@ export const useTerraAssets = <T>(path: string, callback?: (data: T) => T) => {
   )
 }
 
-export const useTerraAssetsByNetwork = <T>(
+export const useIqAssetsByNetwork = <T>(
   path: string,
   disabled = false,
   callback?: (data: T) => T
@@ -29,7 +29,7 @@ export const useTerraAssetsByNetwork = <T>(
   const networkName = useNetworkName()
 
   return useQuery<T | undefined, AxiosError>(
-    [queryKey.TerraAssets, path, networkName],
+    [queryKey.IqAssets, path, networkName],
     async () => {
       const { data } = await axios.get<Record<NetworkName, T>>(path, config)
       if (!data[networkName]) return {} as T
@@ -40,15 +40,15 @@ export const useTerraAssetsByNetwork = <T>(
 }
 
 export const useIBCWhitelist = () => {
-  return useTerraAssetsByNetwork<IBCWhitelist>("ibc/tokens.json")
+  return useIqAssetsByNetwork<IBCWhitelist>("ibc/tokens.json")
 }
 
 export const useCW20Contracts = () => {
-  return useTerraAssetsByNetwork<CW20Contracts>("cw20/contracts.json")
+  return useIqAssetsByNetwork<CW20Contracts>("cw20/contracts.json")
 }
 
 export const useCW20Whitelist = (disabled = false) => {
-  return useTerraAssetsByNetwork<CW20Whitelist>(
+  return useIqAssetsByNetwork<CW20Whitelist>(
     "cw20/tokens.json",
     disabled,
     (data) => sortWhitelistCW20(shuffleByProtocol(data))
@@ -56,7 +56,7 @@ export const useCW20Whitelist = (disabled = false) => {
 }
 
 export const useCW20Pairs = () => {
-  return useTerraAssetsByNetwork<CW20Pairs>("cw20/pairs.dex.json")
+  return useIqAssetsByNetwork<CW20Pairs>("cw20/pairs.dex.json")
 }
 
 export type ContractNames =
@@ -65,13 +65,13 @@ export type ContractNames =
   | "tnsRegistry"
   | "tnsReverseRecord"
 
-export type TerraContracts = Record<ContractNames, AccAddress>
-export const useTerraContracts = () => {
-  return useTerraAssetsByNetwork<TerraContracts>("contracts.json")
+export type IqContracts = Record<ContractNames, AccAddress>
+export const useIqContracts = () => {
+  return useIqAssetsByNetwork<IqContracts>("contracts.json")
 }
 
 export const useCW721Whitelist = () => {
-  return useTerraAssetsByNetwork<CW721Whitelist>(
+  return useIqAssetsByNetwork<CW721Whitelist>(
     "cw721/contracts.json",
     undefined,
     shuffleByProtocol
@@ -84,7 +84,7 @@ interface CW721MarketplaceItem {
 }
 
 export const useCW721Marketplace = () => {
-  return useTerraAssets<CW721MarketplaceItem[]>("cw721/marketplace.json")
+  return useIqAssets<CW721MarketplaceItem[]>("cw721/marketplace.json")
 }
 
 /* helpers */

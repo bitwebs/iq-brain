@@ -1,7 +1,7 @@
 import { useQuery } from "react-query"
 import axios from "axios"
-import { isDenomTerraNative } from "@terra.kitchen/utils"
-import { Coins } from "@terra-money/terra.js"
+import { isDenomIqNative } from "@web4/brain-utils"
+import { Coins } from "@web4/iq.js"
 import createContext from "utils/createContext"
 import { queryKey, RefetchOptions } from "../query"
 import { useAddress, useNetwork } from "../wallet"
@@ -16,7 +16,7 @@ export const useSupply = () => {
       // TODO: Pagination
       // Required when the number of results exceed 100
       const { data } = await axios.get<{ supply: CoinData[] }>(
-        "cosmos/bank/v1beta1/supply", // FIXME: Import from terra.js
+        "cosmos/bank/v1beta1/supply", // FIXME: Import from iq.js
         { baseURL: lcd }
       )
 
@@ -47,13 +47,13 @@ export const useInitialBankBalance = () => {
   )
 }
 
-export const useTerraNativeLength = () => {
+export const useIqNativeLength = () => {
   const bankBalance = useBankBalance()
-  return bankBalance?.toArray().filter(({ denom }) => isDenomTerraNative(denom))
+  return bankBalance?.toArray().filter(({ denom }) => isDenomIqNative(denom))
     .length
 }
 
 export const useIsWalletEmpty = () => {
-  const length = useTerraNativeLength()
+  const length = useIqNativeLength()
   return !length
 }

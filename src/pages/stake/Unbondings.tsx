@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { AccAddress, Dec } from "@terra-money/terra.js"
+import { AccAddress, Dec } from "@web4/iq.js"
 import { getMaxHeightStyle } from "utils/style"
 import { useCurrency } from "data/settings/Currency"
 import { combineState } from "data/query"
@@ -29,7 +29,7 @@ const Unbondings = () => {
     if (!unbondings) return null
 
     const total = calcUnbondingsTotal(unbondings)
-    const value = calcValue({ amount: total, denom: "uluna" })
+    const value = calcValue({ amount: total, denom: "ubiq" })
     const list = flattenUnbondings(unbondings)
 
     return (
@@ -68,7 +68,7 @@ const Unbondings = () => {
               title: t("Amount"),
               dataIndex: "initial_balance",
               render: (amount: Dec) => (
-                <Read amount={amount.toString()} denom="uluna" />
+                <Read amount={amount.toString()} denom="ubiq" />
               ),
               align: "right",
             },

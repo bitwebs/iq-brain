@@ -1,10 +1,10 @@
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { isDenomTerraNative } from "@terra.kitchen/utils"
+import { isDenomIqNative } from "@web4/brain-utils"
 import { getAmount, sortCoins } from "utils/coin"
 import createContext from "utils/createContext"
 import { useCurrency } from "data/settings/Currency"
-import { useBankBalance, useTerraNativeLength } from "data/queries/bank"
+import { useBankBalance, useIqNativeLength } from "data/queries/bank"
 import { readNativeDenom } from "data/token"
 import { Card } from "components/layout"
 import { Wrong } from "components/feedback"
@@ -20,11 +20,11 @@ const MultipleSwapContext: FC = ({ children }) => {
   const { t } = useTranslation()
   const currency = useCurrency()
   const bankBalance = useBankBalance()
-  const length = useTerraNativeLength()
+  const length = useIqNativeLength()
 
   const denoms = sortCoins(bankBalance, currency)
     .map(({ denom }) => denom)
-    .filter(isDenomTerraNative)
+    .filter(isDenomIqNative)
 
   const available = useMemo(() => {
     return denoms.map((denom) => {

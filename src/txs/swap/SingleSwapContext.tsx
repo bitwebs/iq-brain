@@ -1,8 +1,8 @@
 import { FC, useMemo } from "react"
 import { flatten, uniq, zipObj } from "ramda"
 import BigNumber from "bignumber.js"
-import { isDenomIBC, toAmount } from "@terra.kitchen/utils"
-import { AccAddress } from "@terra-money/terra.js"
+import { isDenomIBC, toAmount } from "@web4/brain-utils"
+import { AccAddress } from "@web4/iq.js"
 import { getAmount, sortDenoms } from "utils/coin"
 import { toPrice } from "utils/num"
 import createContext from "utils/createContext"
@@ -11,8 +11,8 @@ import { combineState } from "data/query"
 import { useBankBalance } from "data/queries/bank"
 import { useTokenBalances } from "data/queries/wasm"
 import { readIBCDenom, readNativeDenom } from "data/token"
-import { useIBCWhitelist } from "data/Terra/TerraAssets"
-import { useCW20Whitelist } from "data/Terra/TerraAssets"
+import { useIBCWhitelist } from "data/Iq/IqAssets"
+import { useCW20Whitelist } from "data/Iq/IqAssets"
 import { useCustomTokensCW20 } from "data/settings/CustomTokens"
 import { Card } from "components/layout"
 import { useSwap } from "./SwapContext"
@@ -58,18 +58,18 @@ const SingleSwapContext: FC = ({ children }) => {
   // Why?
   // To search tokens with symbol (ibc, cw20)
   // To filter tokens with balance (cw20)
-  const terraswapAvailableList = useMemo(() => {
+  const iqswapAvailableList = useMemo(() => {
     if (!(ibcWhitelist && cw20Whitelist)) return
 
-    const terraswapAvailableList = uniq(
+    const iqswapAvailableList = uniq(
       flatten(Object.values(pairs).map(({ assets }) => assets))
     )
 
-    const ibc = terraswapAvailableList
+    const ibc = iqswapAvailableList
       .filter(isDenomIBC)
       .filter((denom) => ibcWhitelist[denom.replace("ibc/", "")])
 
-    const cw20 = terraswapAvailableList
+    const cw20 = iqswapAvailableList
       .filter(AccAddress.validate)
       .filter((token) => cw20Whitelist[token])
 
@@ -78,11 +78,11 @@ const SingleSwapContext: FC = ({ children }) => {
 
   // Fetch cw20 balances: only listed and added by the user
   const cw20TokensBalanceRequired = useMemo(() => {
-    if (!terraswapAvailableList) return []
+    if (!iqswapAvailableList) return []
     return customTokens.filter((token) =>
-      terraswapAvailableList.cw20.includes(token)
+      iqswapAvailableList.cw20.includes(token)
     )
-  }, [customTokens, terraswapAvailableList])
+  }, [customTokens, iqswapAvailableList])
 
   const cw20TokensBalancesState = useTokenBalances(cw20TokensBalanceRequired)
   const cw20TokensBalances = useMemo(() => {
@@ -98,7 +98,7 @@ const SingleSwapContext: FC = ({ children }) => {
   }, [cw20TokensBalanceRequired, cw20TokensBalancesState])
 
   const context = useMemo(() => {
-    if (!(terraswapAvailableList && ibcWhitelist && cw20Whitelist)) return
+    if (!(iqswapAvailableList && ibcWhitelist && cw20Whitelist)) return
     if (!cw20TokensBalances) return
 
     const coins = sortDenoms(activeDenoms, currency).map((denom) => {
@@ -106,13 +106,13 @@ const SingleSwapContext: FC = ({ children }) => {
       return { ...readNativeDenom(denom), balance }
     })
 
-    const ibc = terraswapAvailableList.ibc.map((denom) => {
+    const ibc = iqswapAvailableList.ibc.map((denom) => {
       const { base_denom } = ibcWhitelist[denom.replace("ibc/", "")]
       const balance = getAmount(bankBalance, denom)
       return { ...readIBCDenom(denom, base_denom), balance }
     })
 
-    const cw20 = terraswapAvailableList.cw20.map((token) => {
+    const cw20 = iqswapAvailableList.cw20.map((token) => {
       const balance = cw20TokensBalances[token] ?? "0"
       return { ...cw20Whitelist[token], balance }
     })
@@ -135,7 +135,7 @@ const SingleSwapContext: FC = ({ children }) => {
       const offerDecimals = findDecimals(offerAsset)
       const askDecimals = findDecimals(askAsset)
 
-      /* terraswap */
+      /* iqswap */
       const belief_price = new BigNumber(ratio)
         .dp(18, BigNumber.ROUND_DOWN)
         .toString()
@@ -162,7 +162,7 @@ const SingleSwapContext: FC = ({ children }) => {
     activeDenoms,
     ibcWhitelist,
     cw20Whitelist,
-    terraswapAvailableList,
+    iqswapAvailableList,
     cw20TokensBalances,
   ])
 

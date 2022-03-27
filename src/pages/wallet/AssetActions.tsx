@@ -3,10 +3,10 @@ import { flatten, uniq } from "ramda"
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined"
 import ShortcutOutlinedIcon from "@mui/icons-material/ShortcutOutlined"
 import RestartAltIcon from "@mui/icons-material/RestartAlt"
-import { isDenomTerraNative } from "@terra.kitchen/utils"
+import { isDenomIqNative } from "@web4/brain-utils"
 import { has } from "utils/num"
 import { useIsWalletEmpty } from "data/queries/bank"
-import { useCW20Pairs } from "data/Terra/TerraAssets"
+import { useCW20Pairs } from "data/Iq/IqAssets"
 import { InternalButton, InternalLink } from "components/general"
 import { ExtraActions } from "components/layout"
 import { ModalButton } from "components/feedback"
@@ -21,14 +21,14 @@ const AssetActions = ({ token, symbol, balance }: Props) => {
 
   if (!pairs) return null
 
-  const terraswapAvailableList = uniq(flatten(Object.values(pairs)))
-  const getIsSwappableToken = (token: TerraAddress) =>
-    isDenomTerraNative(token) ||
-    terraswapAvailableList.find(({ assets }) => assets.includes(token))
+  const iqswapAvailableList = uniq(flatten(Object.values(pairs)))
+  const getIsSwappableToken = (token: IqAddress) =>
+    isDenomIqNative(token) ||
+    iqswapAvailableList.find(({ assets }) => assets.includes(token))
 
   return (
     <ExtraActions>
-      {(token === "uluna" || token === "uusd") && (
+      {(token === "ubiq" || token === "uusd") && (
         <ModalButton
           title={t("Buy {{symbol}}", { symbol })}
           renderButton={(open) => (

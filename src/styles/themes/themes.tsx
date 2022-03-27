@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { toAmount } from "@terra.kitchen/utils"
+import { toAmount } from "@web4/brain-utils"
 
 /* animation */
 import AnimationLight from "./Light/Broadcasting.png"

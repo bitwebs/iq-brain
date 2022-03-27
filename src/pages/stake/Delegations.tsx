@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { AccAddress, Coin } from "@terra-money/terra.js"
+import { AccAddress, Coin } from "@web4/iq.js"
 import { getMaxHeightStyle } from "utils/style"
 import { combineState } from "data/query"
 import { useMemoizedCalcValue } from "data/queries/oracle"
@@ -27,7 +27,7 @@ const Delegations = () => {
     if (!delegations) return null
 
     const total = calcDelegationsTotal(delegations)
-    const value = calcValue({ amount: total, denom: "uluna" })
+    const value = calcValue({ amount: total, denom: "ubiq" })
 
     return (
       <ModalButton

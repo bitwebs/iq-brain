@@ -1,12 +1,12 @@
 import { ReactNode } from "react"
-import { isDenomIBC, isDenomTerra } from "@terra.kitchen/utils"
-import { readDenom, truncate } from "@terra.kitchen/utils"
-import { AccAddress } from "@terra-money/terra.js"
+import { isDenomIBC, isDenomIq } from "@web4/brain-utils"
+import { readDenom, truncate } from "@web4/brain-utils"
+import { AccAddress } from "@web4/iq.js"
 import { ASSETS } from "config/constants"
 import { useIBCBaseDenom } from "./queries/ibc"
 import { useTokenInfoCW20 } from "./queries/wasm"
 import { useCustomTokensCW20 } from "./settings/CustomTokens"
-import { useCW20Whitelist, useIBCWhitelist } from "./Terra/TerraAssets"
+import { useCW20Whitelist, useIBCWhitelist } from "./Iq/IqAssets"
 
 export const useTokenItem = (token: Token): TokenItem | undefined => {
   /* CW20 */
@@ -63,12 +63,12 @@ export const getIcon = (path: string) => `${ASSETS}/icon/svg/${path}`
 
 export const readNativeDenom = (denom: Denom): TokenItem => {
   const symbol = readDenom(denom)
-  const path = isDenomTerra(denom) ? `Terra/${symbol}.svg` : `${symbol}.svg`
+  const path = isDenomIq(denom) ? `Iq/${symbol}.svg` : `${symbol}.svg`
   return {
     token: denom,
     symbol: symbol,
-    name: isDenomTerra(denom)
-      ? `Terra ${denom.slice(1).toUpperCase()}`
+    name: isDenomIq(denom)
+      ? `Iq ${denom.slice(1).toUpperCase()}`
       : undefined,
     icon: getIcon(path),
     decimals: 6,

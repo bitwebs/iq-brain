@@ -20,9 +20,9 @@ interface CustomTokenIBC extends IBCTokenItem {
 }
 
 interface CustomTokenCW20 extends CW20TokenInfoResponse {
-  token: TerraAddress
+  token: IqAddress
 }
 
 interface CustomTokenCW721 extends CW721ContractInfoResponse {
-  contract: TerraAddress
+  contract: IqAddress
 }

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { useValidator } from "data/queries/staking"
-import { useTerraValidator } from "data/Terra/TerraAPI"
+import { useIqValidator } from "data/Iq/IqAPI"
 import { Col, Page, Auto } from "components/layout"
 import { useGoBackOnError } from "app/routes"
 import useAddressParams from "./useAddressParams"
@@ -15,7 +15,7 @@ const ValidatorDetails = () => {
   const { t } = useTranslation()
   const address = useAddressParams()
   const { data: validator, ...state } = useValidator(address)
-  const { data: TerraValidator } = useTerraValidator(address)
+  const { data: IqValidator } = useIqValidator(address)
 
   useGoBackOnError(state)
 
@@ -28,11 +28,11 @@ const ValidatorDetails = () => {
           <Col>
             <ValidatorCompact />
 
-            {TerraValidator && (
+            {IqValidator && (
               <>
-                <ValidatorSummary validator={TerraValidator} />
-                <ValidatorCommission validator={TerraValidator} />
-                <ValidatorVotes validator={TerraValidator} />
+                <ValidatorSummary validator={IqValidator} />
+                <ValidatorCommission validator={IqValidator} />
+                <ValidatorVotes validator={IqValidator} />
               </>
             )}
 

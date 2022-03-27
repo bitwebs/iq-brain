@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next"
 import { useFieldArray, useForm } from "react-hook-form"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
-import { isDenomTerraNative, readDenom } from "@terra.kitchen/utils"
-import { AccAddress } from "@terra-money/terra.js"
-import { MsgInstantiateContract } from "@terra-money/terra.js"
+import { isDenomIqNative, readDenom } from "@web4/brain-utils"
+import { AccAddress } from "@web4/iq.js"
+import { MsgInstantiateContract } from "@web4/iq.js"
 import { SAMPLE_ADDRESS } from "config/constants"
 import { sortCoins } from "utils/coin"
 import { parseJSON, validateMsg } from "utils/data"
@@ -142,7 +142,7 @@ const InstantiateContractForm = () => {
                   selectBefore={
                     <Select {...register(`coins.${index}.denom`)} before>
                       {sortCoins(bankBalance)
-                        .filter(({ denom }) => isDenomTerraNative(denom))
+                        .filter(({ denom }) => isDenomIqNative(denom))
                         .map(({ denom }) => (
                           <option value={denom} key={denom}>
                             {readDenom(denom)}

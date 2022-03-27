@@ -1,10 +1,10 @@
 import { useCallback } from "react"
 import BigNumber from "bignumber.js"
 import { fromPairs, zipObj } from "ramda"
-import { Coin, Coins, MsgExecuteContract, MsgSwap } from "@terra-money/terra.js"
-import { isDenom, isDenomLuna } from "@terra.kitchen/utils"
-import { isDenomTerra, isDenomTerraNative } from "@terra.kitchen/utils"
-import { TERRASWAP_COMMISSION_RATE } from "config/constants"
+import { Coin, Coins, MsgExecuteContract, MsgSwap } from "@web4/iq.js"
+import { isDenom, isDenomBiq } from "@web4/brain-utils"
+import { isDenomIq, isDenomIqNative } from "@web4/brain-utils"
+import { IQSWAP_COMMISSION_RATE } from "config/constants"
 import { has, toPrice } from "utils/num"
 import { getAmount, toAsset, toAssetInfo, toTokenItem } from "utils/coin"
 import { toBase64 } from "utils/data"
@@ -18,7 +18,7 @@ Then, various helper functions will be generated based on the fetched data. */
 
 export enum SwapMode {
   ONCHAIN = "Market",
-  TERRASWAP = "Terraswap",
+  IQSWAP = "Iqswap",
   ASTROPORT = "Astroport",
   ROUTESWAP = "Route",
 }
@@ -47,7 +47,7 @@ export interface SimulateResult<T = any> {
 }
 
 export type PayloadOnchain = Amount // spread
-export type PayloadTerraswap = Amount // fee
+export type PayloadIqswap = Amount // fee
 export type PayloadRouteswap = string[]
 
 const useSwapUtils = () => {
@@ -57,7 +57,7 @@ const useSwapUtils = () => {
   const { exchangeRates, pairs, contracts } = context
 
   /* helpers */
-  // terraswap
+  // iqswap
   const findPair = useCallback(
     (assets: SwapAssets, dex: Dex) => {
       const { offerAsset, askAsset } = assets
@@ -78,13 +78,13 @@ const useSwapUtils = () => {
   /* determine swap mode */
   const getIsOnchainAvailable = useCallback(
     ({ offerAsset, askAsset }: SwapAssets) => {
-      return [offerAsset, askAsset].every(isDenomTerraNative)
+      return [offerAsset, askAsset].every(isDenomIqNative)
     },
     []
   )
 
-  const getIsTerraswapAvailable = useCallback(
-    (assets: SwapAssets) => !!findPair(assets, "terraswap"),
+  const getIsIqswapAvailable = useCallback(
+    (assets: SwapAssets) => !!findPair(assets, "iqswap"),
     [findPair]
   )
 
@@ -97,19 +97,19 @@ const useSwapUtils = () => {
     (assets: SwapAssets) => {
       if (!contracts) return false
       if (getIsOnchainAvailable(assets)) return false
-      if (getIsTerraswapAvailable(assets)) return false
+      if (getIsIqswapAvailable(assets)) return false
 
       const r0 =
         getIsOnchainAvailable({ ...assets, askAsset: "uusd" }) ||
-        getIsTerraswapAvailable({ ...assets, askAsset: "uusd" })
+        getIsIqswapAvailable({ ...assets, askAsset: "uusd" })
 
       const r1 =
         getIsOnchainAvailable({ ...assets, offerAsset: "uusd" }) ||
-        getIsTerraswapAvailable({ ...assets, offerAsset: "uusd" })
+        getIsIqswapAvailable({ ...assets, offerAsset: "uusd" })
 
       return r0 && r1
     },
-    [contracts, getIsOnchainAvailable, getIsTerraswapAvailable]
+    [contracts, getIsOnchainAvailable, getIsIqswapAvailable]
   )
 
   const getAvailableSwapModes = useCallback(
@@ -118,7 +118,7 @@ const useSwapUtils = () => {
 
       const functions = {
         [SwapMode.ONCHAIN]: getIsOnchainAvailable,
-        [SwapMode.TERRASWAP]: getIsTerraswapAvailable,
+        [SwapMode.IQSWAP]: getIsIqswapAvailable,
         [SwapMode.ASTROPORT]: getIsAstroportAvailable,
         [SwapMode.ROUTESWAP]: getIsRouteswapAvaialble,
       }
@@ -129,7 +129,7 @@ const useSwapUtils = () => {
     },
     [
       getIsOnchainAvailable,
-      getIsTerraswapAvailable,
+      getIsIqswapAvailable,
       getIsAstroportAvailable,
       getIsRouteswapAvaialble,
     ]
@@ -142,15 +142,15 @@ const useSwapUtils = () => {
   const getSwapMode = useCallback(
     (assets: SwapAssets) => {
       const { askAsset } = assets
-      if (isDenomLuna(askAsset)) {
-        return getIsTerraswapAvailable(assets)
-          ? SwapMode.TERRASWAP
+      if (isDenomBiq(askAsset)) {
+        return getIsIqswapAvailable(assets)
+          ? SwapMode.IQSWAP
           : SwapMode.ROUTESWAP
       }
 
       return SwapMode.ONCHAIN
     },
-    [getIsTerraswapAvailable]
+    [getIsIqswapAvailable]
   )
 
   /* simulate | execute */
@@ -182,7 +182,7 @@ const useSwapUtils = () => {
 
   const simulateOnchain = async (params: SwapParams) => {
     const getRate = (denom: CoinDenom) =>
-      isDenomLuna(denom) ? "1" : getAmount(exchangeRates, denom)
+      isDenomBiq(denom) ? "1" : getAmount(exchangeRates, denom)
 
     const { amount, offerAsset, askAsset } = params
     const offerCoin = new Coin(offerAsset, amount)
@@ -210,7 +210,7 @@ const useSwapUtils = () => {
     }
   }
 
-  const getTerraswapParams = useCallback(
+  const getIqswapParams = useCallback(
     (params: SwapParams, dex: Dex) => {
       const { amount, offerAsset, askAsset, belief_price, max_spread } = params
       const fromNative = isDenom(offerAsset)
@@ -239,19 +239,19 @@ const useSwapUtils = () => {
     [address, findPair]
   )
 
-  const simulateTerraswap = async (
+  const simulateIqswap = async (
     params: SwapParams,
-    dex: Dex = "terraswap"
+    dex: Dex = "iqswap"
   ) => {
     const mode = {
-      terraswap: SwapMode.TERRASWAP,
+      iqswap: SwapMode.IQSWAP,
       astroport: SwapMode.ASTROPORT,
     }[dex]
 
     const query = params
 
     const { amount } = params
-    const { pair, simulation } = getTerraswapParams(params, dex)
+    const { pair, simulation } = getIqswapParams(params, dex)
 
     if (pair.type === "stable") {
       const { return_amount: value, commission_amount } =
@@ -276,9 +276,9 @@ const useSwapUtils = () => {
     }
   }
 
-  const getAstroportParams = getTerraswapParams
+  const getAstroportParams = getIqswapParams
   const simulateAstroport = (params: SwapParams) =>
-    simulateTerraswap(params, "astroport")
+    simulateIqswap(params, "astroport")
 
   const getRouteswapParams = useCallback(
     (params: SwapParams) => {
@@ -286,9 +286,9 @@ const useSwapUtils = () => {
       const createSwap = ({ offerAsset, askAsset }: SwapAssets) => {
         const offer_asset_info = toAssetInfo(offerAsset)
         const ask_asset_info = toAssetInfo(askAsset)
-        const buyLuna = isDenomTerra(offerAsset) && isDenomLuna(askAsset)
-        return buyLuna || !getIsOnchainAvailable({ offerAsset, askAsset })
-          ? { terra_swap: { offer_asset_info, ask_asset_info } }
+        const buyBiq = isDenomIq(offerAsset) && isDenomBiq(askAsset)
+        return buyBiq || !getIsOnchainAvailable({ offerAsset, askAsset })
+          ? { iq_swap: { offer_asset_info, ask_asset_info } }
           : { native_swap: { offer_denom: offerAsset, ask_denom: askAsset } }
       }
 
@@ -348,7 +348,7 @@ const useSwapUtils = () => {
   const getSimulateFunction = (mode: SwapMode) => {
     const simulationFunctions = {
       [SwapMode.ONCHAIN]: simulateOnchain,
-      [SwapMode.TERRASWAP]: simulateTerraswap,
+      [SwapMode.IQSWAP]: simulateIqswap,
       [SwapMode.ASTROPORT]: simulateAstroport,
       [SwapMode.ROUTESWAP]: simulateRouteswap,
     }
@@ -361,8 +361,8 @@ const useSwapUtils = () => {
       const getMsgs = {
         [SwapMode.ONCHAIN]: (params: SwapParams) =>
           getOnchainParams(params).msgs,
-        [SwapMode.TERRASWAP]: (params: SwapParams) =>
-          getTerraswapParams(params, "terraswap").msgs,
+        [SwapMode.IQSWAP]: (params: SwapParams) =>
+          getIqswapParams(params, "iqswap").msgs,
         [SwapMode.ASTROPORT]: (params: SwapParams) =>
           getAstroportParams(params, "astroport").msgs,
         [SwapMode.ROUTESWAP]: (params: SwapParams) =>
@@ -373,7 +373,7 @@ const useSwapUtils = () => {
     },
     [
       getOnchainParams,
-      getTerraswapParams,
+      getIqswapParams,
       getAstroportParams,
       getRouteswapParams,
     ]
@@ -430,8 +430,8 @@ export const validateParams = (
 
 /* determinant */
 const getAssertRequired = ({ offerAsset, askAsset }: SwapAssets) =>
-  [offerAsset, askAsset].some(isDenomTerra) &&
-  [offerAsset, askAsset].some(isDenomLuna)
+  [offerAsset, askAsset].some(isDenomIq) &&
+  [offerAsset, askAsset].some(isDenomBiq)
 
 /* helpers */
 const findProfitable = (results: SimulateResult[]) => {
@@ -474,7 +474,7 @@ const calcXyk = (amount: Amount, [offerPool, askPool]: [Amount, Amount]) => {
     .integerValue(BigNumber.ROUND_FLOOR)
 
   const commissionAmount = returnAmount
-    .times(TERRASWAP_COMMISSION_RATE)
+    .times(IQSWAP_COMMISSION_RATE)
     .integerValue(BigNumber.ROUND_FLOOR)
 
   return {

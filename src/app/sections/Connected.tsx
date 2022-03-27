@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next"
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
 import GroupsIcon from "@mui/icons-material/Groups"
 import QrCodeIcon from "@mui/icons-material/QrCode"
-import { truncate } from "@terra.kitchen/utils"
-import { useWallet } from "@terra-money/wallet-provider"
+import { truncate } from "@web4/brain-utils"
+import { useWallet } from "@web4/wallet-provider"
 import { useAddress } from "data/wallet"
 import { useTnsName } from "data/external/tns"
 import { Button, Copy, FinderLink } from "components/general"
@@ -42,7 +42,7 @@ const Connected = () => {
           <Grid gap={16}>
             <Grid gap={4}>
               <section>
-                <Tooltip content={t("View on Terra Finder")}>
+                <Tooltip content={t("View on Iq Finder")}>
                   <FinderLink className={styles.link} short>
                     {address}
                   </FinderLink>

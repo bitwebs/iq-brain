@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom"
 import { useQuery } from "react-query"
 import { useForm } from "react-hook-form"
 import BigNumber from "bignumber.js"
-import { AccAddress } from "@terra-money/terra.js"
-import { isDenomTerra } from "@terra.kitchen/utils"
-import { toAmount } from "@terra.kitchen/utils"
+import { AccAddress } from "@web4/iq.js"
+import { isDenomIq } from "@web4/brain-utils"
+import { toAmount } from "@web4/brain-utils"
 
 /* helpers */
 import { has } from "utils/num"
@@ -279,7 +279,7 @@ const SwapForm = () => {
     return <ExpectedPrice {...props} isLoading={isFetching} />
   }
 
-  const slippageDisabled = [offerAsset, askAsset].every(isDenomTerra)
+  const slippageDisabled = [offerAsset, askAsset].every(isDenomIq)
 
   return (
     <Tx {...tx} disabled={disabled}>

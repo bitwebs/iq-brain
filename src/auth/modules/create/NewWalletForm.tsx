@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { MnemonicKey } from "@terra-money/terra.js"
+import { MnemonicKey } from "@web4/iq.js"
 import CreateWalletWizard from "./CreateWalletWizard"
 import Quiz from "./Quiz"
 

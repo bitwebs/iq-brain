@@ -6,11 +6,11 @@ import { Contacts } from "components/layout"
 import styles from "./Links.module.scss"
 
 const community = {
-  medium: "https://medium.com/terra-money",
+  medium: "https://medium.com/iqchain",
   discord: "https://discord.gg/8uGSUQN7wV",
-  telegram: "https://t.me/TerraLunaChat",
-  twitter: "https://twitter.com/terra_money",
-  github: "https://github.com/terra-money",
+  telegram: "https://t.me/IqChain",
+  twitter: "https://twitter.com/IqChain",
+  github: "https://github.com/bitwebs",
 }
 
 const Links = () => {

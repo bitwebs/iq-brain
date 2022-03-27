@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next"
-import { isDenomLuna, isDenomTerra } from "@terra.kitchen/utils"
-import { readPercent } from "@terra.kitchen/utils"
+import { isDenomBiq, isDenomIq } from "@web4/brain-utils"
+import { readPercent } from "@web4/brain-utils"
 import { toPrice } from "utils/num"
 import { useMarketParams } from "data/queries/market"
 import { useOracleParams } from "data/queries/oracle"
 import { Read } from "components/token"
 import { TooltipIcon } from "components/display"
-import { PayloadOnchain, PayloadTerraswap } from "../useSwapUtils"
+import { PayloadOnchain, PayloadIqswap } from "../useSwapUtils"
 import { PayloadRouteswap } from "../useSwapUtils"
 import { SwapMode } from "../useSwapUtils"
 import { SlippageParams, SwapSpread, useSingleSwap } from "../SingleSwapContext"
@@ -16,7 +16,7 @@ interface Props extends SlippageParams, SwapSpread {
   mode: SwapMode
   isLoading: boolean
   rate?: Price
-  payload?: PayloadOnchain | PayloadTerraswap | PayloadRouteswap
+  payload?: PayloadOnchain | PayloadIqswap | PayloadRouteswap
 }
 
 const ExpectedPrice = ({ mode, input, ...props }: Props) => {
@@ -51,17 +51,17 @@ const ExpectedPrice = ({ mode, input, ...props }: Props) => {
 
     const tooltip = (
       <>
-        {[offerAsset, askAsset].some(isDenomLuna) && (
+        {[offerAsset, askAsset].some(isDenomBiq) && (
           <p>
-            {t("Minimum Luna swap spread: {{minSpread}}", {
+            {t("Minimum Biq swap spread: {{minSpread}}", {
               minSpread: readPercent(minSpread),
             })}
           </p>
         )}
 
-        {askAsset && isDenomTerra(askAsset) && tobinTax && (
+        {askAsset && isDenomIq(askAsset) && tobinTax && (
           <p>
-            {t("Terra tobin tax: {{tobinTax}}", {
+            {t("Iq tobin tax: {{tobinTax}}", {
               tobinTax: readPercent(tobinTax),
             })}
           </p>
@@ -86,8 +86,8 @@ const ExpectedPrice = ({ mode, input, ...props }: Props) => {
     )
   }
 
-  const renderTerraswap = () => {
-    const fee = payload as PayloadTerraswap
+  const renderIqswap = () => {
+    const fee = payload as PayloadIqswap
 
     const decimals = askDecimals - offerDecimals
     const price = toPrice(Number(rate) * Math.pow(10, decimals))
@@ -120,8 +120,8 @@ const ExpectedPrice = ({ mode, input, ...props }: Props) => {
   const renderByMode = (mode: SwapMode) =>
     ({
       [SwapMode.ONCHAIN]: renderOnchain,
-      [SwapMode.TERRASWAP]: renderTerraswap,
-      [SwapMode.ASTROPORT]: renderTerraswap,
+      [SwapMode.IQSWAP]: renderIqswap,
+      [SwapMode.ASTROPORT]: renderIqswap,
       [SwapMode.ROUTESWAP]: renderRouteswap,
     }[mode]())
 

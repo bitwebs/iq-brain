@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useForm } from "react-hook-form"
-import { MsgDeposit } from "@terra-money/terra.js"
-import { toAmount } from "@terra.kitchen/utils"
+import { MsgDeposit } from "@web4/iq.js"
+import { toAmount } from "@web4/brain-utils"
 import { getAmount } from "utils/coin"
 import { queryKey } from "data/query"
 import { useAddress } from "data/wallet"
@@ -23,7 +23,7 @@ const DepositForm = () => {
   const address = useAddress()
 
   const bankBalance = useBankBalance()
-  const balance = getAmount(bankBalance, "uluna")
+  const balance = getAmount(bankBalance, "ubiq")
 
   /* tx context */
   const initialGasDenom = getInitialGasDenom(bankBalance)
@@ -40,7 +40,7 @@ const DepositForm = () => {
     ({ input }: TxValues) => {
       if (!address) return
       const amount = toAmount(input)
-      const msgs = [new MsgDeposit(id, address, amount + "uluna")]
+      const msgs = [new MsgDeposit(id, address, amount + "ubiq")]
       return { msgs }
     },
     [address, id]
@@ -60,7 +60,7 @@ const DepositForm = () => {
     [setValue, trigger]
   )
 
-  const token = "uluna"
+  const token = "ubiq"
   const tx = {
     token,
     amount,
@@ -90,7 +90,7 @@ const DepositForm = () => {
                 valueAsNumber: true,
                 validate: validate.input(toInput(max.amount)),
               })}
-              token="uluna"
+              token="ubiq"
               onFocus={max.reset}
               inputMode="decimal"
               placeholder={getPlaceholder()}

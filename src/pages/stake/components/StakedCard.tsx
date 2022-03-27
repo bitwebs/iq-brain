@@ -18,11 +18,11 @@ const StakedCard: FC<Props> = ({ amount, value, children, ...props }) => {
     <Card {...props} onClick={has(amount) ? props.onClick : undefined}>
       <Grid gap={2}>
         <span className={styles.amount}>
-          <Read amount={amount} denom="uluna" />{" "}
+          <Read amount={amount} denom="ubiq" />{" "}
           <span className={styles.small}>{children}</span>
         </span>
 
-        {currency !== "uluna" && (
+        {currency !== "ubiq" && (
           <Read
             amount={value}
             denom={currency}

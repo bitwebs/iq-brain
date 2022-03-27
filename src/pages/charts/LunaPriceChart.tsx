@@ -1,19 +1,19 @@
 import { useState } from "react"
-import { formatNumber } from "@terra.kitchen/utils"
+import { formatNumber } from "@web4/brain-utils"
 import { useCurrency } from "data/settings/Currency"
 import { useThemeAnimation } from "data/settings/Theme"
-import { ChartInterval, useLunaPriceChart } from "data/Terra/TerraAPI"
+import { ChartInterval, useBiqPriceChart } from "data/Iq/IqAPI"
 import { Flex, Grid } from "components/layout"
 import { Read } from "components/token"
 import { convert, LOADING } from "../charts/components/ChartContainer"
 import ButtonGroup from "./components/ButtonGroup"
 import Chart from "./components/Chart"
 
-const LunaPriceChart = () => {
+const BiqPriceChart = () => {
   const currency = useCurrency()
-  const denom = currency === "uluna" ? "uusd" : currency
+  const denom = currency === "ubiq" ? "uusd" : currency
   const [chartInterval, setChartInterval] = useState(ChartInterval["15m"])
-  const { data, isLoading } = useLunaPriceChart(denom, chartInterval)
+  const { data, isLoading } = useBiqPriceChart(denom, chartInterval)
   const animation = useThemeAnimation()
 
   const formatValue = (value: string) => (
@@ -61,4 +61,4 @@ const LunaPriceChart = () => {
   )
 }
 
-export default LunaPriceChart
+export default BiqPriceChart

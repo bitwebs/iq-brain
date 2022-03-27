@@ -2,9 +2,9 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { last } from "ramda"
 import capitalize from "@mui/utils/capitalize"
-import { readPercent } from "@terra.kitchen/utils"
-import { AggregateStakingReturn } from "data/Terra/TerraAPI"
-import { useStakingReturn } from "data/Terra/TerraAPI"
+import { readPercent } from "@web4/brain-utils"
+import { AggregateStakingReturn } from "data/Iq/IqAPI"
+import { useStakingReturn } from "data/Iq/IqAPI"
 import { Select } from "components/form"
 import { Card } from "components/layout"
 import { TooltipIcon } from "components/display"
@@ -85,7 +85,7 @@ const StakingReturn = () => {
       title={
         <TooltipIcon
           content={t(
-            "Annualized staking yield for Luna based on tax rewards, oracle rewards, gas, MIR and ANC airdrop rewards and latest prices of Luna (annualize return = 10 days moving average return * 365)"
+            "Annualized staking yield for Biq based on tax rewards, oracle rewards, gas, MIR and ANC airdrop rewards and latest prices of Biq (annualize return = 10 days moving average return * 365)"
           )}
         >
           {t("Staking return")}

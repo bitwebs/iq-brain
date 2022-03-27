@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { readAmount } from "@terra.kitchen/utils"
+import { readAmount } from "@web4/brain-utils"
 import { combineState } from "data/query"
 import { useSupply } from "data/queries/bank"
 import { useStakingPool } from "data/queries/staking"
@@ -20,12 +20,12 @@ const StakingRatio = () => {
     if (!(stakingPool && supply)) return null
 
     const bonded = stakingPool.bonded_tokens.amount.toString()
-    const issuance = supply.find(({ denom }) => denom === "uluna")?.amount
+    const issuance = supply.find(({ denom }) => denom === "ubiq")?.amount
 
     if (!issuance) return null
 
     const ratio = Number(bonded) / Number(issuance)
-    const tooltip = t("{{amount}} Luna staked", {
+    const tooltip = t("{{amount}} Biq staked", {
       amount: readAmount(bonded, { prefix: true, integer: true }),
     })
 
@@ -38,7 +38,7 @@ const StakingRatio = () => {
         }
         footer={
           <DashboardTag>
-            {[t("Staked Luna"), t("Total Luna")].join(" / ")}
+            {[t("Staked Biq"), t("Total Biq")].join(" / ")}
           </DashboardTag>
         }
       />

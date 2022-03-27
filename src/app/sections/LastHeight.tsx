@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next"
 import classNames from "classnames"
-import { formatNumber } from "@terra.kitchen/utils"
-import { useTerraObserver } from "data/Terra/TerraObserver"
+import { formatNumber } from "@web4/brain-utils"
+import { useIqObserver } from "data/Iq/IqObserver"
 import { FinderLink } from "components/general"
 import { Flex } from "components/layout"
 import styles from "./LastHeight.module.scss"
 
 const LastHeight = () => {
   const { t } = useTranslation()
-  const { block } = useTerraObserver()
+  const { block } = useIqObserver()
   const height = block?.header.height
 
   return (

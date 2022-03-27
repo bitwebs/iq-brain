@@ -2,17 +2,17 @@ import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import VerifiedIcon from "@mui/icons-material/Verified"
-import { readPercent } from "@terra.kitchen/utils"
-import { Validator } from "@terra-money/terra.js"
-/* FIXME(terra.js): Import from terra.js */
-import { BondStatus } from "@terra-money/terra.proto/cosmos/staking/v1beta1/staking"
-import { bondStatusFromJSON } from "@terra-money/terra.proto/cosmos/staking/v1beta1/staking"
+import { readPercent } from "@web4/brain-utils"
+import { Validator } from "@web4/iq.js"
+/* FIXME(iq.js): Import from iq.js */
+import { BondStatus } from "@web4/iq.proto/cosmos/staking/v1beta1/staking"
+import { bondStatusFromJSON } from "@web4/iq.proto/cosmos/staking/v1beta1/staking"
 import { combineState } from "data/query"
 import { useOracleParams } from "data/queries/oracle"
 import { useValidators } from "data/queries/staking"
 import { useDelegations, useUnbondings } from "data/queries/staking"
-import { getCalcUptime, getCalcVotingPowerRate } from "data/Terra/TerraAPI"
-import { calcSelfDelegation, useTerraValidators } from "data/Terra/TerraAPI"
+import { getCalcUptime, getCalcVotingPowerRate } from "data/Iq/IqAPI"
+import { calcSelfDelegation, useIqValidators } from "data/Iq/IqAPI"
 import { Page, Card, Table, Flex, Grid } from "components/layout"
 import WithSearchInput from "pages/custom/WithSearchInput"
 import ProfileIcon from "./components/ProfileIcon"
@@ -27,21 +27,21 @@ const Validators = () => {
   const { data: validators, ...validatorsState } = useValidators()
   const { data: delegations, ...delegationsState } = useDelegations()
   const { data: undelegations, ...undelegationsState } = useUnbondings()
-  const { data: TerraValidators, ...TerraValidatorsState } =
-    useTerraValidators()
+  const { data: IqValidators, ...IqValidatorsState } =
+    useIqValidators()
 
   const state = combineState(
     oracleParamsState,
     validatorsState,
     delegationsState,
     undelegationsState,
-    TerraValidatorsState
+    IqValidatorsState
   )
 
   const activeValidators = useMemo(() => {
-    if (!(oracleParams && validators && TerraValidators)) return null
+    if (!(oracleParams && validators && IqValidators)) return null
 
-    const calcRate = getCalcVotingPowerRate(TerraValidators)
+    const calcRate = getCalcVotingPowerRate(IqValidators)
     const calcUptime = getCalcUptime(oracleParams)
 
     return validators
@@ -49,16 +49,16 @@ const Validators = () => {
       .map((validator) => {
         const { operator_address } = validator
 
-        const TerraValidator = TerraValidators.find(
+        const IqValidator = IqValidators.find(
           (validator) => validator.operator_address === operator_address
         )
 
         const voting_power_rate = calcRate(operator_address)
-        const selfDelegation = calcSelfDelegation(TerraValidator)
-        const uptime = calcUptime(TerraValidator)
+        const selfDelegation = calcSelfDelegation(IqValidator)
+        const uptime = calcUptime(IqValidator)
 
         return {
-          ...TerraValidator,
+          ...IqValidator,
           ...validator,
           voting_power_rate,
           selfDelegation,
@@ -73,7 +73,7 @@ const Validators = () => {
           Number(b.selfDelegation) - Number(a.selfDelegation) ||
           Number(b.voting_power_rate) - Number(a.voting_power_rate)
       )
-  }, [TerraValidators, oracleParams, validators])
+  }, [IqValidators, oracleParams, validators])
 
   const renderCount = () => {
     if (!validators) return null

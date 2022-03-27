@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next"
 import { useFieldArray, useForm } from "react-hook-form"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
-import { AccAddress, Coins, MsgSubmitProposal } from "@terra-money/terra.js"
-import { TextProposal, CommunityPoolSpendProposal } from "@terra-money/terra.js"
-import { ParameterChangeProposal, ParamChange } from "@terra-money/terra.js"
-import { readAmount, readDenom, toAmount } from "@terra.kitchen/utils"
+import { AccAddress, Coins, MsgSubmitProposal } from "@web4/iq.js"
+import { TextProposal, CommunityPoolSpendProposal } from "@web4/iq.js"
+import { ParameterChangeProposal, ParamChange } from "@web4/iq.js"
+import { readAmount, readDenom, toAmount } from "@web4/brain-utils"
 import { SAMPLE_ADDRESS } from "config/constants"
 import { getAmount } from "utils/coin"
 import { has } from "utils/num"
@@ -64,7 +64,7 @@ const SubmitProposalForm = ({ communityPool, minDeposit }: Props) => {
   const address = useAddress()
 
   const bankBalance = useBankBalance()
-  const balance = getAmount(bankBalance, "uluna")
+  const balance = getAmount(bankBalance, "ubiq")
 
   /* tx context */
   const initialGasDenom = getInitialGasDenom(bankBalance)
@@ -94,7 +94,7 @@ const SubmitProposalForm = ({ communityPool, minDeposit }: Props) => {
     ({ input, title, description, ...values }: TxValues) => {
       if (!address) return
       const amount = toAmount(input)
-      const deposit = has(amount) ? new Coins({ uluna: amount }) : []
+      const deposit = has(amount) ? new Coins({ ubiq: amount }) : []
 
       const getContent = () => {
         if (values.type === ProposalType.SPEND) {
@@ -141,7 +141,7 @@ const SubmitProposalForm = ({ communityPool, minDeposit }: Props) => {
     [setValue, trigger]
   )
 
-  const token = "uluna"
+  const token = "ubiq"
   const tx = {
     token,
     amount,
@@ -188,7 +188,7 @@ const SubmitProposalForm = ({ communityPool, minDeposit }: Props) => {
               placeholder={placeholder}
               selectBefore={
                 <Select {...register("spend.denom")} before>
-                  {["uluna", "uusd"].map((denom) => (
+                  {["ubiq", "uusd"].map((denom) => (
                     <option value={denom} key={denom}>
                       {readDenom(denom)}
                     </option>
@@ -299,7 +299,7 @@ const SubmitProposalForm = ({ communityPool, minDeposit }: Props) => {
                 required: "Description is required",
               })}
               placeholder={t(
-                "We’re proposing to initiate the burn of 100,000,000 LUNA from the Community Pool to mint UST"
+                "We’re proposing to initiate the burn of 100,000,000 BIQ from the Community Pool to mint UST"
               )}
             />
           </FormItem>
@@ -319,7 +319,7 @@ const SubmitProposalForm = ({ communityPool, minDeposit }: Props) => {
                   true
                 ),
               })}
-              token="uluna"
+              token="ubiq"
               onFocus={max.reset}
               inputMode="decimal"
               placeholder={getPlaceholder()}

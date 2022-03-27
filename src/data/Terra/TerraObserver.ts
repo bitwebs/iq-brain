@@ -1,9 +1,9 @@
-import { Block } from "@terra-money/terra.js"
+import { Block } from "@web4/iq.js"
 import { useEffect, useRef, useState } from "react"
 import { OBSERVER } from "config/constants"
 import { useChainID } from "../wallet"
 
-export const useTerraObserver = () => {
+export const useIqObserver = () => {
   const ws = useRef<WebSocket | null>(null)
   const chainID = useChainID()
   const [block, setBlock] = useState<Block>()

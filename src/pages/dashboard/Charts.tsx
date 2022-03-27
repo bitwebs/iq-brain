@@ -1,4 +1,4 @@
-import { useIsTerraAPIAvailable } from "data/Terra/TerraAPI"
+import { useIsIqAPIAvailable } from "data/Iq/IqAPI"
 import TxVolume from "../charts/TxVolume"
 import StakingReturn from "../charts/StakingReturn"
 import TaxRewards from "../charts/TaxRewards"
@@ -6,7 +6,7 @@ import Wallets from "../charts/Wallets"
 import styles from "./Charts.module.scss"
 
 const Charts = () => {
-  const available = useIsTerraAPIAvailable()
+  const available = useIsIqAPIAvailable()
   if (!available) return null
 
   return (

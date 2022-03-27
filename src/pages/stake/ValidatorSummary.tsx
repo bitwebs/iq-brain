@@ -1,14 +1,14 @@
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { readPercent } from "@terra.kitchen/utils"
-import { TerraValidator } from "types/validator"
-import { calcSelfDelegation } from "data/Terra/TerraAPI"
-import { useUptime } from "data/Terra/TerraAPI"
+import { readPercent } from "@web4/brain-utils"
+import { IqValidator } from "types/validator"
+import { calcSelfDelegation } from "data/Iq/IqAPI"
+import { useUptime } from "data/Iq/IqAPI"
 import { Card } from "components/layout"
 import Uptime from "./components/Uptime"
 import ValidatorNumbers from "./components/ValidatorNumbers"
 
-const ValidatorSummary = ({ validator }: { validator: TerraValidator }) => {
+const ValidatorSummary = ({ validator }: { validator: IqValidator }) => {
   const { t } = useTranslation()
 
   const { data: uptime, ...uptimeState } = useUptime(validator)

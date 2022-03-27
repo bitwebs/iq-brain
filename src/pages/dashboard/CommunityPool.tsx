@@ -17,8 +17,8 @@ const CommunityPool = () => {
   const render = () => {
     if (!data) return null
 
-    const amount = getAmount(data, "uluna")
-    const value = <Read amount={amount} denom="uluna" prefix />
+    const amount = getAmount(data, "ubiq")
+    const value = <Read amount={amount} denom="ubiq" prefix />
 
     const list = sortCoins(data)
       .map((item) => ({ ...item, value: calcValue(item) }))

@@ -16,7 +16,7 @@ const SubmitProposalTx = () => {
 
   const render = () => {
     if (!(communityPool && depositParams)) return null
-    const minDeposit = getAmount(depositParams.min_deposit, "uluna")
+    const minDeposit = getAmount(depositParams.min_deposit, "ubiq")
     return (
       <SubmitProposalForm
         communityPool={communityPool}

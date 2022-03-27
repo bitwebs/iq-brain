@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom"
 import { useFieldArray, useForm } from "react-hook-form"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
-import { isDenomTerraNative, readDenom } from "@terra.kitchen/utils"
-import { MsgExecuteContract } from "@terra-money/terra.js"
+import { isDenomIqNative, readDenom } from "@web4/brain-utils"
+import { MsgExecuteContract } from "@web4/iq.js"
 import { sortCoins } from "utils/coin"
 import { parseJSON, validateMsg } from "utils/data"
 import { queryKey } from "data/query"
@@ -116,7 +116,7 @@ const ExecuteContractForm = () => {
                   selectBefore={
                     <Select {...register(`coins.${index}.denom`)} before>
                       {sortCoins(bankBalance)
-                        .filter(({ denom }) => isDenomTerraNative(denom))
+                        .filter(({ denom }) => isDenomIqNative(denom))
                         .map(({ denom }) => (
                           <option value={denom} key={denom}>
                             {readDenom(denom)}

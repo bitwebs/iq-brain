@@ -1,5 +1,5 @@
-import { Coins } from "@terra-money/terra.js"
-import { isDenom, isDenomIBC } from "@terra.kitchen/utils"
+import { Coins } from "@web4/iq.js"
+import { isDenom, isDenomIBC } from "@web4/brain-utils"
 
 /* coin */
 export const getAmount = (coins: Coins, denom: Denom, fallback = "0") => {
@@ -22,7 +22,7 @@ export const sortByDenom = <T extends { denom: Denom }>(
 ) =>
   coins.sort(
     (a, b) =>
-      compareIs("uluna")(a.denom, b.denom) ||
+      compareIs("ubiq")(a.denom, b.denom) ||
       compareIs("uusd")(a.denom, b.denom) ||
       compareIs(currency)(a.denom, b.denom) ||
       compareIsDenomIBC(a.denom, b.denom) ||
@@ -32,7 +32,7 @@ export const sortByDenom = <T extends { denom: Denom }>(
 export const sortDenoms = (denoms: Denom[], currency = "") =>
   denoms.sort(
     (a, b) =>
-      compareIs("uluna")(a, b) ||
+      compareIs("ubiq")(a, b) ||
       compareIs("uusd")(a, b) ||
       compareIs(currency)(a, b) ||
       compareIsDenomIBC(a, b)

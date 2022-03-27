@@ -47,7 +47,7 @@ const SwapMultipleForm = () => {
   const { getSwapMode, getSimulateFunction, getMsgsFunction } = utils
   const { activeDenoms } = useSwap()
   const { available } = useMultipleSwap()
-  const initialGasDenom = "uluna"
+  const initialGasDenom = "ubiq"
 
   /* options: askAsset */
   const options = [
@@ -62,7 +62,7 @@ const SwapMultipleForm = () => {
   /* form */
   const form = useForm<TxValues>({
     mode: "onChange",
-    defaultValues: { askAsset: "uluna" },
+    defaultValues: { askAsset: "ubiq" },
   })
 
   const { watch, setValue, handleSubmit } = form

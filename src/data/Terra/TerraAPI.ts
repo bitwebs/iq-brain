@@ -2,9 +2,9 @@ import { useMemo } from "react"
 import { useQuery } from "react-query"
 import axios, { AxiosError } from "axios"
 import BigNumber from "bignumber.js"
-import { OracleParams, ValAddress } from "@terra-money/terra.js"
-import { TerraValidator } from "types/validator"
-import { TerraProposalItem } from "types/proposal"
+import { OracleParams, ValAddress } from "@web4/iq.js"
+import { IqValidator } from "types/validator"
+import { IqProposalItem } from "types/proposal"
 import { useNetworkName } from "data/wallet"
 import { useOracleParams } from "data/queries/oracle"
 import { queryKey, RefetchOptions } from "../query"
@@ -25,26 +25,26 @@ export enum AggregateWallets {
   ACTIVE = "active",
 }
 
-export const useTerraAPIURL = (network?: string) => {
+export const useIqAPIURL = (network?: string) => {
   const networkName = useNetworkName()
   return {
-    mainnet: "https://api.terra.dev",
-    testnet: "https://bombay-api.terra.dev",
+    mainnet: "https://api.iqchain.network",
+    testnet: "https://mcafee-api.iqchain.network",
   }[network ?? networkName]
 }
 
-export const useIsTerraAPIAvailable = () => {
-  const url = useTerraAPIURL()
+export const useIsIqAPIAvailable = () => {
+  const url = useIqAPIURL()
   return !!url
 }
 
-export const useTerraAPI = <T>(path: string, params?: object, fallback?: T) => {
-  const baseURL = useTerraAPIURL()
-  const available = useIsTerraAPIAvailable()
+export const useIqAPI = <T>(path: string, params?: object, fallback?: T) => {
+  const baseURL = useIqAPIURL()
+  const available = useIsIqAPIAvailable()
   const shouldFallback = !available && fallback
 
   return useQuery<T, AxiosError>(
-    [queryKey.TerraAPI, baseURL, path, params],
+    [queryKey.IqAPI, baseURL, path, params],
     async () => {
       if (shouldFallback) return fallback
       const { data } = await axios.get(path, { baseURL, params })
@@ -58,13 +58,13 @@ export const useTerraAPI = <T>(path: string, params?: object, fallback?: T) => {
 export type GasPrices = Record<Denom, Amount>
 
 export const useGasPrices = () => {
-  const current = useTerraAPIURL()
-  const mainnet = useTerraAPIURL("mainnet")
+  const current = useIqAPIURL()
+  const mainnet = useIqAPIURL("mainnet")
   const baseURL = current ?? mainnet
   const path = "/gas-prices"
 
   return useQuery(
-    [queryKey.TerraAPI, baseURL, path],
+    [queryKey.IqAPI, baseURL, path],
     async () => {
       const { data } = await axios.get<GasPrices>(path, { baseURL })
       return data
@@ -83,49 +83,49 @@ export enum ChartInterval {
   "1d" = "1d",
 }
 
-export const useLunaPriceChart = (denom: Denom, interval: ChartInterval) => {
-  return useTerraAPI<ChartDataItem[]>(`chart/price/${denom}`, { interval })
+export const useBiqPriceChart = (denom: Denom, interval: ChartInterval) => {
+  return useIqAPI<ChartDataItem[]>(`chart/price/${denom}`, { interval })
 }
 
 export const useTxVolume = (denom: Denom, type: Aggregate) => {
-  return useTerraAPI<ChartDataItem[]>(`chart/tx-volume/${denom}/${type}`)
+  return useIqAPI<ChartDataItem[]>(`chart/tx-volume/${denom}/${type}`)
 }
 
 export const useStakingReturn = (type: AggregateStakingReturn) => {
-  return useTerraAPI<ChartDataItem[]>(`chart/staking-return/${type}`)
+  return useIqAPI<ChartDataItem[]>(`chart/staking-return/${type}`)
 }
 
 export const useTaxRewards = (type: Aggregate) => {
-  return useTerraAPI<ChartDataItem[]>(`chart/tax-rewards/${type}`)
+  return useIqAPI<ChartDataItem[]>(`chart/tax-rewards/${type}`)
 }
 
 export const useWallets = (walletsType: AggregateWallets) => {
   const type =
     walletsType === AggregateWallets.TOTAL ? "cumulative" : "periodic"
-  return useTerraAPI<ChartDataItem[]>(`chart/wallets/${walletsType}/${type}`)
+  return useIqAPI<ChartDataItem[]>(`chart/wallets/${walletsType}/${type}`)
 }
 
 /* validators */
-export const useTerraValidators = () => {
-  return useTerraAPI<TerraValidator[]>("validators", undefined, [])
+export const useIqValidators = () => {
+  return useIqAPI<IqValidator[]>("validators", undefined, [])
 }
 
-export const useTerraValidator = (address: ValAddress) => {
-  return useTerraAPI<TerraValidator>(`validators/${address}`)
+export const useIqValidator = (address: ValAddress) => {
+  return useIqAPI<IqValidator>(`validators/${address}`)
 }
 
-export const useTerraProposal = (id: number) => {
-  return useTerraAPI<TerraProposalItem[]>(`proposals/${id}`)
+export const useIqProposal = (id: number) => {
+  return useIqAPI<IqProposalItem[]>(`proposals/${id}`)
 }
 
 /* helpers */
-export const getCalcVotingPowerRate = (TerraValidators: TerraValidator[]) => {
+export const getCalcVotingPowerRate = (IqValidators: IqValidator[]) => {
   const total = BigNumber.sum(
-    ...TerraValidators.map(({ voting_power = 0 }) => voting_power)
+    ...IqValidators.map(({ voting_power = 0 }) => voting_power)
   ).toNumber()
 
   return (address: ValAddress) => {
-    const validator = TerraValidators.find(
+    const validator = IqValidators.find(
       ({ operator_address }) => operator_address === address
     )
 
@@ -135,14 +135,14 @@ export const getCalcVotingPowerRate = (TerraValidators: TerraValidator[]) => {
   }
 }
 
-export const calcSelfDelegation = (validator?: TerraValidator) => {
+export const calcSelfDelegation = (validator?: IqValidator) => {
   if (!validator) return
   const { self, tokens } = validator
   return self ? Number(self) / Number(tokens) : undefined
 }
 
 export const getCalcUptime = ({ slash_window }: OracleParams) => {
-  return (validator?: TerraValidator) => {
+  return (validator?: IqValidator) => {
     if (!validator) return
     const { miss_counter } = validator
     return miss_counter ? 1 - Number(miss_counter) / slash_window : undefined
@@ -150,11 +150,11 @@ export const getCalcUptime = ({ slash_window }: OracleParams) => {
 }
 
 export const useVotingPowerRate = (address: ValAddress) => {
-  const { data: TerraValidators, ...state } = useTerraValidators()
+  const { data: IqValidators, ...state } = useIqValidators()
   const calcRate = useMemo(() => {
-    if (!TerraValidators) return
-    return getCalcVotingPowerRate(TerraValidators)
-  }, [TerraValidators])
+    if (!IqValidators) return
+    return getCalcVotingPowerRate(IqValidators)
+  }, [IqValidators])
 
   const data = useMemo(() => {
     if (!calcRate) return
@@ -164,7 +164,7 @@ export const useVotingPowerRate = (address: ValAddress) => {
   return { data, ...state }
 }
 
-export const useUptime = (validator: TerraValidator) => {
+export const useUptime = (validator: IqValidator) => {
   const { data: oracleParams, ...state } = useOracleParams()
 
   const calc = useMemo(() => {

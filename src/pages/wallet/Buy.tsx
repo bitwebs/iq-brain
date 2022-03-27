@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import qs from "qs"
-import { readDenom } from "@terra.kitchen/utils"
+import { readDenom } from "@web4/brain-utils"
 import { ReactComponent as Binance } from "styles/images/exchanges/Binance.svg"
 import { ReactComponent as KuCoin } from "styles/images/exchanges/KuCoin.svg"
 import { ReactComponent as Huobi } from "styles/images/exchanges/Huobi.svg"
@@ -10,25 +10,25 @@ import Kado from "styles/images/exchanges/Kado.svg"
 import { ListGroup } from "components/display"
 
 export const exchanges = {
-  uluna: [
+  ubiq: [
     {
       children: "Binance",
-      href: "https://www.binance.com/en/trade/LUNA_USDT",
+      href: "https://www.binance.com/en/trade/BIQ_USDT",
       icon: <Binance width={24} height={24} />,
     },
     {
       children: "Huobi",
-      href: "https://www.huobi.com/en-us/exchange/luna_usdt/",
+      href: "https://www.huobi.com/en-us/exchange/biq_usdt/",
       icon: <Huobi width={24} height={24} />,
     },
     {
       children: "KuCoin",
-      href: "https://trade.kucoin.com/LUNA-USDT",
+      href: "https://trade.kucoin.com/BIQ-USDT",
       icon: <KuCoin width={24} height={24} />,
     },
     {
       children: "Bitfinex",
-      href: "https://trading.bitfinex.com/t/LUNA:USD",
+      href: "https://trading.bitfinex.com/t/BIQ:USD",
       icon: <Bitfinex width={24} height={24} />,
     },
   ],
@@ -50,7 +50,7 @@ export const exchanges = {
     },
     {
       children: "Bitfinex",
-      href: "https://trading.bitfinex.com/t/TERRAUST:USD",
+      href: "https://trading.bitfinex.com/t/IQUST:USD",
       icon: <Bitfinex width={24} height={24} />,
     },
   ],
@@ -60,13 +60,13 @@ const TRANSAK_URL = "https://global.transak.com"
 const TRANSAK_API_KEY = "f619d86d-48e0-4f2f-99a1-f827b719ac0b"
 const KADO_URL = "https://ramp.kado.money"
 
-const getTransakLink = (denom: "uluna" | "uusd") => {
+const getTransakLink = (denom: "ubiq" | "uusd") => {
   const queryString = qs.stringify(
     {
       apiKey: TRANSAK_API_KEY,
-      cryptoCurrencyList: "UST,LUNA",
+      cryptoCurrencyList: "UST,BIQ",
       defaultCryptoCurrency: readDenom(denom).toUpperCase(),
-      networks: "terra",
+      networks: "iq",
     },
     { skipNulls: true, encode: false }
   )
@@ -74,7 +74,7 @@ const getTransakLink = (denom: "uluna" | "uusd") => {
   return `${TRANSAK_URL}/?${queryString}`
 }
 
-const Buy = ({ token }: { token: "uluna" | "uusd" }) => {
+const Buy = ({ token }: { token: "ubiq" | "uusd" }) => {
   const { t } = useTranslation()
   const TRANSAK = {
     children: "Transak",

@@ -1,8 +1,8 @@
-import { AccAddress } from "@terra-money/terra.js"
+import { AccAddress } from "@web4/iq.js"
 import { combineState } from "data/query"
 import { useCustomTokensIBC } from "data/settings/CustomTokens"
 import { useCustomTokensCW20 } from "data/settings/CustomTokens"
-import { useIBCWhitelist, useCW20Whitelist } from "data/Terra/TerraAssets"
+import { useIBCWhitelist, useCW20Whitelist } from "data/Iq/IqAssets"
 import { useTokenInfoCW20 } from "data/queries/wasm"
 import { Fetching } from "components/feedback"
 import WithSearchInput from "./WithSearchInput"
@@ -18,7 +18,7 @@ const Component = ({ whitelist, keyword }: Props) => {
   const cw20 = useCustomTokensCW20()
 
   type AddedIBC = Record<string, CustomTokenIBC>
-  type AddedCW20 = Record<TerraAddress, CustomTokenCW20>
+  type AddedCW20 = Record<IqAddress, CustomTokenCW20>
   const added = {
     ibc: ibc.list.reduce<AddedIBC>(
       (acc, item) => ({ ...acc, [item.denom.replace("ibc/", "")]: item }),

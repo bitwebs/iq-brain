@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import classNames from "classnames/bind"
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined"
-import { readPercent } from "@terra.kitchen/utils"
-import { ValAddress, Vote } from "@terra-money/terra.js"
+import { readPercent } from "@web4/brain-utils"
+import { ValAddress, Vote } from "@web4/iq.js"
 import { combineState } from "data/query"
 import { useDelegations } from "data/queries/staking"
 import { useGetVoteOptionItem } from "data/queries/gov"
-import { getCalcVotingPowerRate } from "data/Terra/TerraAPI"
-import { useTerraProposal, useTerraValidators } from "data/Terra/TerraAPI"
+import { getCalcVotingPowerRate } from "data/Iq/IqAPI"
+import { useIqProposal, useIqValidators } from "data/Iq/IqAPI"
 import { ExternalLink } from "components/general"
 import { Card, Grid, Table } from "components/layout"
 import { Checkbox } from "components/form"
@@ -43,19 +43,19 @@ const ProposalVotesByValidator = ({ id }: { id: number }) => {
   const [delegatedOnly, setDelegatedOnly] = useState(false)
 
   const { data: delegations, ...delegationsState } = useDelegations()
-  const { data: TerraProposal, ...TerraProposalState } = useTerraProposal(id)
-  const { data: TerraValidators, ...TerraValidatorsState } =
-    useTerraValidators()
+  const { data: IqProposal, ...IqProposalState } = useIqProposal(id)
+  const { data: IqValidators, ...IqValidatorsState } =
+    useIqValidators()
 
   const state = combineState(
     delegationsState,
-    TerraProposalState,
-    TerraValidatorsState
+    IqProposalState,
+    IqValidatorsState
   )
 
   const getList = useCallback(
     (tab?: Vote.Option) => {
-      if (!(delegations && TerraProposal && TerraValidators)) return []
+      if (!(delegations && IqProposal && IqValidators)) return []
 
       const getIsDelegated = (address: ValAddress) => {
         return delegations.some(
@@ -64,7 +64,7 @@ const ProposalVotesByValidator = ({ id }: { id: number }) => {
       }
 
       const getHasVoted = (address: ValAddress, option?: Vote.Option) => {
-        return TerraProposal.some(({ voter, options }) => {
+        return IqProposal.some(({ voter, options }) => {
           if (ValAddress.fromAccAddress(voter) !== address) return false
 
           const voted = options.some(
@@ -75,14 +75,14 @@ const ProposalVotesByValidator = ({ id }: { id: number }) => {
         })
       }
 
-      return TerraValidators.filter(({ operator_address, status }) => {
+      return IqValidators.filter(({ operator_address, status }) => {
         if (getIsUnbonded(status)) return false
         if (delegatedOnly && !getIsDelegated(operator_address)) return false
         if (!tab) return !getHasVoted(operator_address)
         return getHasVoted(operator_address, tab)
       })
     },
-    [TerraProposal, TerraValidators, delegatedOnly, delegations]
+    [IqProposal, IqValidators, delegatedOnly, delegations]
   )
 
   const getCount = useCallback(
@@ -91,9 +91,9 @@ const ProposalVotesByValidator = ({ id }: { id: number }) => {
   )
 
   const render = () => {
-    if (!(delegations && TerraProposal && TerraValidators)) return null
+    if (!(delegations && IqProposal && IqValidators)) return null
 
-    const calcRate = getCalcVotingPowerRate(TerraValidators)
+    const calcRate = getCalcVotingPowerRate(IqValidators)
 
     const dataSource = getList(tab)
       .map((validator) => {

@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next"
-import { useIsTerraAPIAvailable } from "data/Terra/TerraAPI"
+import { useIsIqAPIAvailable } from "data/Iq/IqAPI"
 import { Wrong } from "components/feedback"
 import HistoryList from "./HistoryList"
 
 const History = () => {
   const { t } = useTranslation()
-  const available = useIsTerraAPIAvailable()
+  const available = useIsIqAPIAvailable()
 
   if (!available) return <Wrong>{t("History is not supported")}</Wrong>
 

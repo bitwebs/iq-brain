@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js"
-import { readAmount, toAmount } from "@terra.kitchen/utils"
-import { Coin, Coins } from "@terra-money/terra.js"
+import { readAmount, toAmount } from "@web4/brain-utils"
+import { Coin, Coins } from "@web4/iq.js"
 import { has } from "utils/num"
 
 export const getPlaceholder = (decimals = 6) => "0.".padEnd(decimals + 2, "0")

@@ -1,4 +1,4 @@
-import { ValAddress } from "@terra-money/terra.js"
+import { ValAddress } from "@web4/iq.js"
 import { getFindMoniker, useValidators } from "data/queries/staking"
 import { FinderLink } from "../general"
 import { InternalLink } from "./Internal"

@@ -16,8 +16,8 @@ const Issuance = () => {
   const render = () => {
     if (!data) return null
 
-    const amount = data.find((item) => item.denom === "uluna")?.amount ?? "0"
-    const value = <Read amount={amount} denom="uluna" prefix />
+    const amount = data.find((item) => item.denom === "ubiq")?.amount ?? "0"
+    const value = <Read amount={amount} denom="ubiq" prefix />
 
     const list = data
       .map((item) => ({ ...item, value: calcValue(item) }))

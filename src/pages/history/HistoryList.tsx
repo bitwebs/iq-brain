@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "react-query"
 import axios from "axios"
 import { queryKey } from "data/query"
 import { useAddress } from "data/wallet"
-import { useTerraAPIURL } from "data/Terra/TerraAPI"
+import { useIqAPIURL } from "data/Iq/IqAPI"
 import { Button } from "components/general"
 import { Card, Col, Page } from "components/layout"
 import { Empty } from "components/feedback"
@@ -13,7 +13,7 @@ import HistoryItem from "./HistoryItem"
 const HistoryList = () => {
   const { t } = useTranslation()
   const address = useAddress()
-  const baseURL = useTerraAPIURL()
+  const baseURL = useIqAPIURL()
 
   /* query */
   const fetchAccountHistory = useCallback(
@@ -29,7 +29,7 @@ const HistoryList = () => {
   )
 
   const { data, error, fetchNextPage, ...state } = useInfiniteQuery(
-    [queryKey.TerraAPI, "history", baseURL, address],
+    [queryKey.IqAPI, "history", baseURL, address],
     fetchAccountHistory,
     { getNextPageParam: ({ next }) => next, enabled: !!(address && baseURL) }
   )

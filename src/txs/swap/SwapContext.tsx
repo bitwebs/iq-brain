@@ -1,18 +1,18 @@
 import { FC } from "react"
-import { Coins } from "@terra-money/terra.js"
+import { Coins } from "@web4/iq.js"
 import createContext from "utils/createContext"
 import { combineState } from "data/query"
 import { useActiveDenoms, useExchangeRates } from "data/queries/oracle"
-import { TerraContracts } from "data/Terra/TerraAssets"
-import { useCW20Pairs } from "data/Terra/TerraAssets"
-import { useTerraContracts } from "data/Terra/TerraAssets"
+import { IqContracts } from "data/Iq/IqAssets"
+import { useCW20Pairs } from "data/Iq/IqAssets"
+import { useIqContracts } from "data/Iq/IqAssets"
 import { Fetching } from "components/feedback"
 
 interface Swap {
   activeDenoms: Denom[]
   exchangeRates: Coins
   pairs: CW20Pairs
-  contracts?: TerraContracts
+  contracts?: IqContracts
 }
 
 export const [useSwap, SwapProvider] = createContext<Swap>("useSwap")
@@ -21,7 +21,7 @@ const SwapContext: FC = ({ children }) => {
   const { data: activeDenoms, ...activeDenomsState } = useActiveDenoms()
   const { data: exchangeRates, ...exchangeRatesState } = useExchangeRates()
   const { data: pairs, ...cw20PairsState } = useCW20Pairs()
-  const { data: contracts, ...contractsState } = useTerraContracts()
+  const { data: contracts, ...contractsState } = useIqContracts()
 
   const state = combineState(
     activeDenomsState,

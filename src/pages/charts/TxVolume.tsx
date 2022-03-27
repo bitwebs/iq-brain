@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next"
 import BigNumber from "bignumber.js"
 import { head, last } from "ramda"
 import { capitalize } from "@mui/material"
-import { isDenomTerraNative, readAmount, readDenom } from "@terra.kitchen/utils"
+import { isDenomIqNative, readAmount, readDenom } from "@web4/brain-utils"
 import { sortDenoms } from "utils/coin"
 import { useCurrency } from "data/settings/Currency"
-import { Aggregate, useTxVolume } from "data/Terra/TerraAPI"
+import { Aggregate, useTxVolume } from "data/Iq/IqAPI"
 import { useActiveDenoms } from "data/queries/oracle"
 import { Select } from "components/form"
 import { Card } from "components/layout"
@@ -32,7 +32,7 @@ const TxVolume = () => {
       <Filter>
         <Select value={denom} onChange={(e) => setDenom(e.target.value)} small>
           {sortDenoms(activeDenoms, currency)
-            .filter(isDenomTerraNative)
+            .filter(isDenomIqNative)
             .map((denom) => (
               <option value={denom} key={denom}>
                 {readDenom(denom)}

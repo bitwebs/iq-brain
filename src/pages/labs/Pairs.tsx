@@ -1,4 +1,4 @@
-import { useCW20Pairs } from "data/Terra/TerraAssets"
+import { useCW20Pairs } from "data/Iq/IqAssets"
 import { WithTokenItem } from "data/token"
 import { Col, Row, Card } from "components/layout"
 import { Token } from "components/token"

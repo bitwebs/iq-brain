@@ -14,13 +14,13 @@ const GovernanceParams = () => {
 
   if (!(votingParams && depositParams)) return null
 
-  const minDeposit = depositParams.min_deposit.get("uluna")
+  const minDeposit = depositParams.min_deposit.get("ubiq")
 
   const contents = [
     {
       title: t("Minimum deposit"),
       content: minDeposit && (
-        <Read amount={minDeposit.amount.toString()} token="uluna" />
+        <Read amount={minDeposit.amount.toString()} token="ubiq" />
       ),
     },
     {
